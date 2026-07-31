@@ -1,0 +1,177 @@
+{% extends 'admin_layout.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow">
+
+        <div class="card-header bg-primary text-white">
+            <h3>Student Details</h3>
+        </div>
+
+        <div class="card-body table-responsive">
+
+            <table class="table table-bordered table-hover table-striped">
+
+                <thead class=" fw-bold">
+
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile</th>
+                        <th>Course</th>
+                        <th>Gender</th>
+                        <th>status</th>
+                        <th>DOB</th>
+                        <th>Father</th>
+                        <th>Mother</th>
+                        <th>Category</th>
+                        <th>Blood Group</th>
+                        <th>Aadhaar</th>
+                        <th>Nationality</th>
+                        <th>Religion</th>
+                        <th>Alt Mobile</th>
+                        <th>Emergency</th>
+                        <th>Address</th>
+                        <th>City</th>
+                        <th>District</th>
+                        <th>State</th>
+                        <th>Country</th>
+                        <th>Pincode</th>
+                        <th>Session</th>
+                        <th>Qualification</th>
+                        <th>Board</th>
+                        <th>Passing Year</th>
+                        <th>Percentage</th>
+                        <th>Guardian</th>
+                        <th>Relation</th>
+                        <th>Guardian Mobile</th>
+                        <th>Guardian Email</th>
+                        <th>Occupation</th>
+                        <th>Photo</th>
+                        <th>Signature</th>
+                        <th>Aadhaar</th>
+                        <th>10th</th>
+                        <th>12th</th>
+                        <th>Graduation</th>
+                        <th>TC</th>
+                        <th>Character</th>
+                        <th>Created</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for student in students %}
+
+                    <tr>
+
+                        <td>{{ student.name }}</td>
+                        <td>{{ student.email }}</td>
+                        <td>{{ student.mobile }}</td>
+                        <td>{{ student.course }}</td>
+                        <td>{{ student.gender }}</td>
+                        <td>{{ student.status }}</td></td>
+                        <td>{{ student.dob }}</td>
+                        <td>{{ student.father_name }}</td>
+                        <td>{{ student.mother_name }}</td>
+                        <td>{{ student.category }}</td>
+                        <td>{{ student.blood_group }}</td>
+                        <td>{{ student.aadhaar }}</td>
+                        <td>{{ student.nationality }}</td>
+                        <td>{{ student.religion }}</td>
+                        <td>{{ student.alternate_mobile }}</td>
+                        <td>{{ student.emergency_contact }}</td>
+                        <td>{{ student.address }}</td>
+                        <td>{{ student.city }}</td>
+                        <td>{{ student.district }}</td>
+                        <td>{{ student.state }}</td>
+                        <td>{{ student.country }}</td>
+                        <td>{{ student.pincode }}</td>
+                        <td>{{ student.session }}</td>
+                        <td>{{ student.qualification }}</td>
+                        <td>{{ student.board_university }}</td>
+                        <td>{{ student.passing_year }}</td>
+                        <td>{{ student.percentage }}</td>
+                        <td>{{ student.guardian_name }}</td>
+                        <td>{{ student.guardian_relation }}</td>
+                        <td>{{ student.guardian_mobile }}</td>
+                        <td>{{ student.guardian_email }}</td>
+                        <td>{{ student.guardian_occupation }}</td>
+
+                        <td>
+                            {% if student.photo %}
+                                <img src="{{ student.photo.url }}" width="70" class="img-thumbnail">
+                                <a href="{{ student.photo.url }}" width="70" class="img-thumbnail">View</a>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if student.signature %}
+                                <img src="{{ student.signature.url }}" width="70" class="img-thumbnail">
+                                <a href="{{ student.signature.url }}" width="70" class="img-thumbnail">View</a>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if student.aadhaar_file %}
+                                <a href="{{ student.aadhaar_file.url }}" target="_blank">View</a>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if student.marksheet_10 %}
+                                <a href="{{ student.marksheet_10.url }}" target="_blank">View</a>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if student.marksheet_12 %}
+                                <a href="{{ student.marksheet_12.url }}" target="_blank">View</a>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if student.graduation_marksheet %}
+                                
+                                <a href="{{ student.graduation_marksheet.url }}" target="_blank">View</a>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if student.transfer_certificate %}
+                                <a href="{{ student.transfer_certificate.url }}" target="_blank">View</a>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if student.character_certificate %}
+                                <a href="{{ student.character_certificate.url }}" target="_blank">View</a>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ student.created_at }}</td>
+
+                    </tr>
+
+                    {% empty %}
+
+                    <tr>
+                        <td colspan="40" class="text-center">No Students Found</td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

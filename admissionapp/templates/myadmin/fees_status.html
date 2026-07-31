@@ -1,0 +1,108 @@
+{% extends 'admin_layout.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container-fluid mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4>Student Fee Verification</h4>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="text-light">#</th>
+                            <th class="text-light">Photo</th>
+                            <th class="text-light">Student</th>
+                            <th class="text-light">Course</th>
+                            <th class="text-light">Fee</th>
+                            <th class="text-light">Payment</th>
+                            <th class="text-light">Screenshot</th>
+                            <th class="text-light">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                    {% for student in students %}
+                        <tr>
+                           <td>{{ forloop.counter }}</td>
+
+<td>
+    {% if student.photo %}
+        <img src="{{ student.photo.url }}"
+             width="60"
+             height="60"
+             class="rounded-circle">
+    {% else %}
+        <img src="{% static 'images/user.png' %}"
+             width="60"
+             height="60"
+             class="rounded-circle">
+    {% endif %}
+</td>
+                                      <td>
+    <strong>{{ student.name }}</strong><br>
+    {{ student.mobile }}<br>
+    {{ student.email }}
+</td>
+                                       <td>{{ student.course.coursename }}</td>
+                                       <td>₹ {{ student.course.fees }}</td>
+                                       <td>
+                                           {% if student.payment_status == "Pending" %}
+                                           <span class="badge bg-warning">Pending</span>
+                                           {% elif student.payment_status == "Submitted" %}
+                                           <span class="badge bg-success">Submitted</span>
+                                           {% elif student.payment_status == "Verified" %}
+                                           <span class="badge bg-danger">Verified</span>
+                                           {% endif %}
+                            </td>
+                            <td>
+                               <span class="badge bg-info">{{student.status}}</span>
+                                </td>
+                                <td>
+                                    {% if student.payment_screenshot %}
+                                    <a href="{{student.payment_screenshot.url}}" target="blank">
+                                        <img src="{{student.payment_screenshot.url}}" width="80"
+                                        class="img-thumbnail">
+                                    </a>
+                                    {% else %}
+                                    <span class="badge bg-warning">Not Uploaded</span>
+
+                                    {% endif %}
+                                    </td>
+                                    <td>
+                                       {% if student.payment_status == "Submitted" %}
+                                        <a href="{% url 'verify_payment' student.id %}" class="btn btn-success">
+                                            <i class="fa-solid fa-check"></i>
+                                            Verified
+                                        </a>
+                                        <br><br>
+                                        <a href="{% url 'reject_payment' student.id %}" class="btn btn-danger">
+                                            <i class="fa-solid fa-xmark"></i>
+                                            Rejected
+                                        </a>
+                                    {% elif student.payment_status == "Verified" %}
+                                        <span class="badge bg-success">Verified</span>
+                                        {% else %}
+                                          --
+                                          {% endif %}
+                                          </td>
+                                          </tr>
+                                          {% empty %}
+                                          <tr>
+                                              <td colspan="7">No record Found</td>
+                                              </tr>
+                                          {% endfor %}
+
+                    </tbody>
+
+
+                
+                </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

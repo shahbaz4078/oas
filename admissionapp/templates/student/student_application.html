@@ -1,0 +1,469 @@
+{% extends 'student/student_layout.html' %}
+
+{% block content %}
+
+{% if submitted %}
+
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-body text-center py-5">
+
+            <i class="fa-solid fa-circle-check text-success"
+               style="font-size:90px;"></i>
+
+            <h2 class="mt-4 text-success">
+                Application Submitted Successfully
+            </h2>
+
+            <p class="text-muted mt-3">
+                Thank you for submitting your application.
+                Your application is now under review by the administration.
+            </p>
+
+            <hr>
+
+            <h5>
+                Application Status
+                
+      <div class="">
+       {% if student.status == 'Pending' %}
+<span class="badge bg-warning">Pending</span>
+{% elif student.status == 'Document Verification' %}
+<span class="badge bg-info">Document Verification</span>
+{% elif student.status == 'Fee Submission' %}
+<span class="badge bg-success">Enrolled</span>
+{% elif student.status == 'Enrolled' %}
+<span class="badge bg-success">Enrolled</span>
+{% elif student.status == 'Rejected' %}
+<span class="badge bg-danger">Rejected</span>
+{% else %}
+<span class="badge bg-warning">Pending</span>
+{% endif %}
+      </div>
+            </h5>
+
+            <a href="{% url 'student_dashboard' %}"
+               class="btn btn-primary mt-4">
+                Back to Dashboard
+            </a>
+
+        </div>
+    </div>
+</div>
+
+{% else %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="container mt-4">
+
+        <!-- ========================================================= -->
+        <!-- PERSONAL DETAILS -->
+        <!-- ========================================================= -->
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h4>Personal Details</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label>Full Name</label>
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               value="{{ student.name }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Email</label>
+                        <input type="email"
+                               name="email"
+                               class="form-control"
+                               value="{{ student.email }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Password</label>
+                        <input type="password"
+                               name="password"
+                               class="form-control"
+                               value="{{ student.password }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Mobile</label>
+                        <input type="text"
+                               name="mobile"
+                               class="form-control"
+                               value="{{ student.mobile }}"
+                               required>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Course</label>
+
+                        <select name="course" class="form-select">
+
+                            {% for course in courses %}
+
+                            <option value="{{ course.id }}"
+                            {% if student.course.id == course.id %}selected{% endif %}>
+                                {{ course.coursename }}
+                            </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+
+                        <label>Gender</label>
+
+                        <select name="gender" class="form-select">
+
+                            <option value="Male"
+                            {% if student.gender == "Male" %}selected{% endif %}>
+                                Male
+                            </option>
+
+                            <option value="Female"
+                            {% if student.gender == "Female" %}selected{% endif %}>
+                                Female
+                            </option>
+
+                            <option value="Other"
+                            {% if student.gender == "Other" %}selected{% endif %}>
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Date of Birth</label>
+                        <input type="date"
+                               name="dob"
+                               class="form-control"
+                               value="{{ student.dob }}">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Category</label>
+
+                        <select name="category" class="form-select">
+
+                            <option value="General"
+                            {% if student.category == "General" %}selected{% endif %}>
+                                General
+                            </option>
+
+                            <option value="OBC"
+                            {% if student.category == "OBC" %}selected{% endif %}>
+                                OBC
+                            </option>
+
+                            <option value="SC"
+                            {% if student.category == "SC" %}selected{% endif %}>
+                                SC
+                            </option>
+
+                            <option value="ST"
+                            {% if student.category == "ST" %}selected{% endif %}>
+                                ST
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Father Name</label>
+                        <input type="text"
+                               name="father_name"
+                               value="{{ student.father_name }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Mother Name</label>
+                        <input type="text"
+                               name="mother_name"
+                               value="{{ student.mother_name }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Blood Group</label>
+                        <input type="text"
+                               name="blood_group"
+                               value="{{ student.blood_group }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Aadhaar Number</label>
+                        <input type="text"
+                               name="aadhaar"
+                               value="{{ student.aadhaar }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Religion</label>
+                        <input type="text"
+                               name="religion"
+                               value="{{ student.religion }}"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Nationality</label>
+                        <input type="text"
+                               name="nationality"
+                               value="{{ student.nationality }}"
+                               class="form-control">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+     <div class="card shadow mb-4">
+
+            <div class="card-header bg-success text-white">
+                <h4>Contact Details</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label>Alternate Mobile</label>
+                        <input type="text" name="alternate_mobile"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Emergency Contact</label>
+                        <input type="text" name="emergency_contact"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Address</label>
+                        <textarea name="address"
+                            class="form-control"></textarea>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>City</label>
+                        <input type="text" name="city" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>District</label>
+                        <input type="text" name="district" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>State</label>
+                        <input type="text" name="state" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Country</label>
+                        <input type="text" name="country" class="form-control"
+                            value="India">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Pincode</label>
+                        <input type="text" name="pincode" class="form-control">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Academic Details -->
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-warning">
+                <h4>Academic Details</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label>Session</label>
+                        <input type="text" name="session" class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Qualification</label>
+                        <input type="text" name="qualification"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Board / University</label>
+                        <input type="text" name="board_university"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Passing Year</label>
+                        <input type="number" name="passing_year"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Percentage</label>
+                        <input type="number" step="0.01" name="percentage"
+                            class="form-control">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Guardian Details -->
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-info text-white">
+                <h4>Guardian Details</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label>Guardian Name</label>
+                        <input type="text" name="guardian_name"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Relationship</label>
+                        <input type="text" name="guardian_relation"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Guardian Mobile</label>
+                        <input type="text" name="guardian_mobile"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Guardian Email</label>
+                        <input type="email" name="guardian_email"
+                            class="form-control">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label>Occupation</label>
+                        <input type="text" name="guardian_occupation"
+                            class="form-control">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Upload Documents -->
+
+        <div class="card shadow mb-4">
+
+            <div class="card-header bg-secondary text-white">
+                <h4>Upload Documents</h4>
+            </div>
+
+            <div class="card-body">
+
+                <div class="mb-3">
+                    <label>Photo</label>
+                    <input type="file" name="photo" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Signature</label>
+                    <input type="file" name="signature" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Aadhaar Card</label>
+                    <input type="file" name="aadhaar_file" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>10th Marksheet</label>
+                    <input type="file" name="marksheet_10" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>12th Marksheet</label>
+                    <input type="file" name="marksheet_12" class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Graduation Marksheet</label>
+                    <input type="file" name="graduation_marksheet"
+                        class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Transfer Certificate</label>
+                    <input type="file" name="transfer_certificate"
+                        class="form-control">
+                </div>
+
+                <div class="mb-3">
+                    <label>Character Certificate</label>
+                    <input type="file" name="character_certificate"
+                        class="form-control">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="text-center my-5">
+
+            <button class="btn btn-success btn-lg px-5">
+                Submit Application
+            </button>
+
+        </div>
+
+    </div>
+
+</form>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends 'student/student_layout.html' %}
+
+{% block content %}
+
+<div class="content-card">
+
+    <h2>Student Dashboard</h2>
+
+    <hr>
+
+    <h4>Welcome {{ student.name }} 👋</h4>
+
+    <p>
+        This is your dashboard.
+    </p>
+
+
+
+<main class="main">
+  <!-- PERSONAL INFO CARD -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon icon-blue"><i class="fa-solid fa-user"></i></div>
+      <h2>Personal Information</h2>
+    </div>
+
+    <!-- AVATAR ROW -->
+    <div class="avatar-row">
+      <div class="avatar">SA</div>
+      <div class="avatar-info">
+       <strong>{{ student.name }}</strong>
+        <span>Student ID: {{ student.id }} &nbsp;·&nbsp;  {{ student.course.coursename }}</span>
+      </div>
+     {% if student.status == 'Pending' %}
+<span class="badge bg-warning">Pending</span>
+{% elif student.status == 'Document Verification' %}
+<span class="badge bg-info">Document Verification</span>
+{% elif student.status == 'Fee Submission' %}
+<span class="badge bg-success">Enrolled</span>
+{% elif student.status == 'Enrolled' %}
+<span class="badge bg-success">Enrolled</span>
+{% elif student.status == 'Rejected' %}
+<span class="badge bg-danger">Rejected</span>
+{% else %}
+<span class="badge bg-warning">Pending</span>
+{% endif %}
+    </div>
+
+    <!-- INFO FIELDS -->
+    <div class="info-grid">
+
+      <div class="info-item">
+        <label><i class="fa-solid fa-id-badge"></i> Student ID</label>
+       <div class="val">{{ student.id }}</div>
+      </div>
+
+      <div class="info-item">
+        <label><i class="fa-solid fa-user"></i> Full Name</label>
+        <div class="val">{{ student.name }}</div>
+      </div>
+
+      <div class="info-item">
+        <label><i class="fa-solid fa-envelope"></i> Email Address</label>
+       <div class="val">{{ student.email }}</div>
+      </div>
+
+      <div class="info-item">
+        <label><i class="fa-solid fa-phone"></i> Phone Number</label>
+      <div class="val">{{ student.mobile }}</div>
+      </div>
+
+      <div class="info-item">
+        <label><i class="fa-solid fa-graduation-cap"></i> Course</label>
+        <div class="val">
+    <span class="badge badge-blue">
+        {{ student.course.coursename }}
+    </span>
+</div>
+      </div>
+
+   <div class="info-item">
+    <label><i class="fa-solid fa-venus-mars"></i> Gender</label>
+    <div class="val">{{ student.gender }}</div>
+</div>
+
+      <div class="info-item">
+    <label><i class="fa-solid fa-calendar-days"></i> Date of Birth</label>
+    <div class="val">{{ student.dob }}</div>
+</div>
+
+
+      <div class="info-item">
+        <label><i class="fa-solid fa-circle-dot"></i> Status</label>
+       {% if student.status == 'Pending' %}
+<span class="badge bg-warning">Pending</span>
+{% elif student.status == 'Document Verification' %}
+<span class="badge bg-info">Document Verification</span>
+{% elif student.status == 'Fee Submission' %}
+<span class="badge bg-success">Enrolled</span>
+{% elif student.status == 'Enrolled' %}
+<span class="badge bg-success">Enrolled</span>
+{% elif student.status == 'Rejected' %}
+<span class="badge bg-danger">Rejected</span>
+{% else %}
+<span class="badge bg-warning">Pending</span>
+{% endif %}
+      </div>
+
+     <div class="info-item full">
+    <label><i class="fa-solid fa-location-dot"></i> Address</label>
+    <div class="val">{{ student.address }}</div>
+</div>
+
+    </div>
+  </div>
+
+  <!-- COURSE INFO CARD -->
+  <div class="card">
+    <div class="card-header">
+      <div class="icon icon-green"><i class="fa-solid fa-book-open"></i></div>
+      <h2>Course Details</h2>
+    </div>
+
+    <table class="course-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Course Name</th>
+          <th>Duration (Year)</th>
+          <th>Duration (Months)</th>
+          <th>Fees (₹)</th>
+        </tr>
+      </thead>
+    <tbody>
+{% if student.course %}
+<tr>
+    <td>1</td>
+    <td>{{ student.course.coursename }}</td>
+    <td>{{ student.course.session }}</td>
+    <td>{{ student.course.duration }}</td>
+    <td>₹ {{ student.course.fees }}</td>
+</tr>
+{% else %}
+<tr>
+    <td colspan="5" class="text-center">No course assigned.</td>
+</tr>
+{% endif %}
+</tbody>
+    </table>
+  </div>
+
+</main>
+</div>
+
+{% endblock %}

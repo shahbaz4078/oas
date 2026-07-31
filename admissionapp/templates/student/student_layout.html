@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Panel</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#0f172a;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+.wrapper{
+    display:flex;
+    min-height:100vh;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:240px;
+    background:#1e293b;
+    color:#fff;
+    padding-top:20px;
+    position:fixed;
+    top:0;
+    left:0;
+    bottom:0;
+}
+
+.sb-brand{
+    padding:20px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.sb-brand h2{
+    font-size:20px;
+    margin-bottom:5px;
+}
+
+.sb-brand p{
+    color:#94a3b8;
+    font-size:13px;
+}
+
+.sb-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#cbd5e1;
+    text-decoration:none;
+    padding:14px 22px;
+    transition:.3s;
+}
+
+.sb-link:hover{
+    background:#334155;
+    color:#fff;
+}
+
+.sb-link.active{
+    background:#2563eb;
+    color:white;
+}
+
+/* Main */
+
+.main-content{
+    margin-left:240px;
+    width:calc(100% - 240px);
+    padding:35px;
+}
+
+/* Card */
+
+/* ===========================
+   MAIN CONTAINER
+=========================== */
+
+.content-card{
+    background:linear-gradient(135deg,#f8fafc,#eef4ff);
+    border-radius:20px;
+    padding:35px;
+    box-shadow:0 20px 45px rgba(15,23,42,.12);
+    border:1px solid rgba(255,255,255,.7);
+}
+
+/* ===========================
+   MAIN
+=========================== */
+
+.main{
+    padding:15px;
+}
+
+/* ===========================
+   CARD
+=========================== */
+
+.card{
+    background:#fff;
+    border:none;
+    border-radius:22px;
+    padding:28px;
+    margin-bottom:30px;
+    overflow:hidden;
+    transition:.35s;
+    box-shadow:
+        0 10px 35px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.5);
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:
+        0 20px 50px rgba(37,99,235,.15);
+}
+
+/* ===========================
+   HEADER
+=========================== */
+
+.card-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:none;
+    border:none;
+    padding:0 0 20px;
+    margin-bottom:25px;
+    border-bottom:1px solid #edf2f7;
+}
+
+.card-header h2{
+    margin:0;
+    font-size:22px;
+    font-weight:700;
+    color:#1e293b;
+}
+
+.icon{
+    width:55px;
+    height:55px;
+    border-radius:16px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:22px;
+}
+
+.icon-blue{
+    background:linear-gradient(135deg,#2563eb,#60a5fa);
+    color:#fff;
+}
+
+.icon-green{
+    background:linear-gradient(135deg,#16a34a,#4ade80);
+    color:#fff;
+}
+
+/* ===========================
+   PROFILE BOX
+=========================== */
+
+.avatar-row{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    padding:22px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    border-radius:18px;
+    margin-bottom:30px;
+    color:white;
+}
+
+.avatar{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:28px;
+    font-weight:700;
+    background:rgba(255,255,255,.2);
+    border:3px solid rgba(255,255,255,.5);
+}
+
+.avatar-info strong{
+    display:block;
+    font-size:24px;
+    color:#fff;
+}
+
+.avatar-info span{
+    color:#dbeafe;
+    font-size:15px;
+}
+
+/* ===========================
+   GRID
+=========================== */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:22px;
+}
+
+.info-item{
+    padding:18px;
+    border-radius:16px;
+    background:#f8fafc;
+    transition:.3s;
+    border:1px solid #e2e8f0;
+}
+
+.info-item:hover{
+    background:#eef6ff;
+    transform:translateY(-4px);
+}
+
+.info-item label{
+    display:block;
+    color:#64748b;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.08em;
+    margin-bottom:10px;
+    text-transform:uppercase;
+}
+
+.info-item .val{
+    color:#0f172a;
+    font-size:16px;
+    font-weight:600;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+/* ===========================
+   BADGES
+=========================== */
+
+.badge{
+    padding:6px 15px;
+    border-radius:40px;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.03em;
+}
+
+.badge-blue{
+    background:#dbeafe;
+    color:#2563eb;
+}
+
+.badge-green{
+    background:#dcfce7;
+    color:#16a34a;
+}
+
+/* ===========================
+   TABLE
+=========================== */
+
+.course-table{
+    width:100%;
+    border-collapse:collapse;
+    overflow:hidden;
+    border-radius:16px;
+}
+
+.course-table thead{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+}
+
+.course-table th{
+    padding:18px;
+    font-size:13px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+}
+
+.course-table td{
+    padding:18px;
+    font-size:15px;
+    color:#1e293b;
+    border-bottom:1px solid #edf2f7;
+}
+
+.course-table tbody tr{
+    transition:.25s;
+}
+
+.course-table tbody tr:hover{
+    background:#eff6ff;
+}
+
+/* ===========================
+   PAGE TITLE
+=========================== */
+
+h2{
+    font-weight:700;
+    color:#0f172a;
+}
+
+hr{
+    opacity:.12;
+    margin:18px 0 25px;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+.avatar-row{
+    flex-direction:column;
+    text-align:center;
+}
+
+.avatar-info{
+    text-align:center;
+}
+
+.info-grid{
+    grid-template-columns:1fr;
+}
+
+.course-table{
+    display:block;
+    overflow-x:auto;
+}
+
+}
+</style>
+
+</head>
+<body>
+
+<div class="wrapper">
+
+    <aside class="sidebar">
+
+        <div class="sb-brand">
+            <h2 style="color:rgb(234, 241, 17);">
+                <i class="fa-solid fa-circle-user text-primary"></i>
+                Sipher Academy
+            </h2>
+            <p>Student Portal</p>
+        </div>
+
+        <a href="{% url 'student_dashboard' %}" class="sb-link ">
+            <i class="fa-solid fa-gauge"></i>
+            Dashboard
+        </a>
+
+         <a href="{% url 'student_application' %}" class="sb-link">
+            <i class="fa-solid fa-book"></i>
+            My Application
+        </a>
+
+
+         <a href="{% url 'student_fee_submission' %}" class="sb-link">
+            <i class="fa-solid fa-book"></i>
+            Fees and Payments
+        </a>
+
+
+        <a href="{% url 'student_logout' %}" class="sb-link">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Logout
+        </a>
+
+    </aside>
+
+
+    <div class="main-content">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const currentPage = window.location.pathname;
+
+    const links = document.querySelectorAll(".sb-link");
+
+    links.forEach(link => {
+
+        const linkPath = new URL(link.href).pathname;
+
+        if (linkPath === currentPage) {
+            link.classList.add("active");
+        } else {
+            link.classList.remove("active");
+        }
+
+    });
+
+});
+</script>
+</body>
+</html>

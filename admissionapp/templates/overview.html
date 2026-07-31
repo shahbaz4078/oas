@@ -1,0 +1,209 @@
+<div class="container-fluid mt-4">
+
+    <!-- Statistics -->
+    <div class="row g-4">
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card stat-card purple">
+                <div>
+                    <small>Total Students</small>
+                    <h2>1,245</h2>
+                    <span class="text-success">
+                        <i class="fa-solid fa-arrow-trend-up"></i> +12%
+                    </span>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card stat-card blue">
+                <div>
+                    <small>Courses</small>
+                    <h2>24</h2>
+                    <span class="text-info">
+                        <i class="fa-solid fa-book"></i> Active
+                    </span>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card stat-card orange">
+                <div>
+                    <small>Teachers</small>
+                    <h2>32</h2>
+                    <span class="text-warning">
+                        Full Time
+                    </span>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-chalkboard-user"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="dashboard-card stat-card green">
+                <div>
+                    <small>Revenue</small>
+                    <h2>₹2.5L</h2>
+                    <span class="text-success">
+                        +18%
+                    </span>
+                </div>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Charts -->
+
+    <div class="row mt-4">
+
+        <div class="col-lg-8">
+
+            <div class="dashboard-card">
+
+                <div class="d-flex justify-content-between align-items-center mb-4">
+
+                    <h5>Student Enrollments</h5>
+
+                    <button class="btn btn-sm btn-outline-light">
+                        This Month
+                    </button>
+
+                </div>
+
+                <canvas id="enrollChart" height="100"></canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-card">
+
+                <h5 class="mb-4">Course Distribution</h5>
+
+                <canvas id="courseChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Recent Students -->
+
+    <div class="row mt-4">
+
+        <div class="col-lg-8">
+
+            <div class="dashboard-card">
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <h5>Recent Students</h5>
+
+                    <button class="btn btn-sm btn-primary">
+                        View All
+                    </button>
+
+                </div>
+
+                <table class="table table-dark table-borderless align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Course</th>
+                            <th>Status</th>
+                            <th>Date</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Shahbaz Ansari</td>
+                            <td>Python</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                            <td>Today</td>
+                        </tr>
+
+                        <tr>
+                            <td>Rahul Kumar</td>
+                            <td>Java</td>
+                            <td><span class="badge bg-warning">Pending</span></td>
+                            <td>Yesterday</td>
+                        </tr>
+
+                        <tr>
+                            <td>Aman Singh</td>
+                            <td>Web Development</td>
+                            <td><span class="badge bg-primary">Active</span></td>
+                            <td>2 Days Ago</td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-lg-4">
+
+            <div class="dashboard-card">
+
+                <h5 class="mb-3">Quick Actions</h5>
+
+                <button class="btn btn-primary w-100 mb-3">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Add Student
+                </button>
+
+                <button class="btn btn-warning w-100 mb-3">
+                    <i class="fa-solid fa-user-pen"></i>
+                    Edit Student
+                </button>
+
+                <button class="btn btn-success w-100">
+                    <i class="fa-solid fa-book"></i>
+                    Manage Courses
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

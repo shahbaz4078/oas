@@ -1,0 +1,79 @@
+{% extends 'admin_layout.html' %}
+{% block content %}
+
+
+    <style>
+
+        h2{
+            margin-bottom:20px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:#fff;
+        }
+
+        table th,
+        table td{
+            border:1px solid #ddd;
+            padding:12px;
+            text-align:center;
+        }
+
+        table th{
+            background:#0f086d;
+            color:white;
+        }
+
+        table tr:nth-child(even){
+            background:#f9f9f9;
+        }
+
+        table tr:hover{
+            background:#ececec;
+        }
+    </style>
+
+
+
+<h2 class="text-light">Courses List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Course Name</th>
+            <th>Session</th>
+            <th>Duration</th>
+            <th>Fees</th>
+            <th>Action</th>
+         
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for course in courses %}
+        <tr>
+            <td>{{ course.id }}</td>
+            <td>{{ course.coursename }}</td>
+            <td>{{ course.session }}</td>
+            <td>{{ course.duration }}</td>
+            <td>{{ course.fees }}</td>
+            <td><button class="btn btn-danger text-light" ><a href="{% url 'course_delete' course.id %} " style="color:#ddd; text-decoration: none;">DELETE</a></td></button>
+        </tr>
+
+    {% empty %}
+
+        <tr>
+            <td colspan="8">No students found.</td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+</table>
+
+
+{% endblock %}

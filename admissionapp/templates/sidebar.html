@@ -1,0 +1,74 @@
+<aside class="sidebar" >
+
+  <!-- LOGO / PROFILE -->
+  <div class="sb-profile">
+    <div class="sb-avatar">SA</div>
+    <div class="sb-name">
+      <strong>Sipher Web</strong>
+      <span>Administrator</span>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav class="sb-nav">
+
+    
+
+    <div class="sb-group-label">Enquiry</div>
+    <a href="{% url 'all_enquiry' %}" class="sb-link">
+      <div class="sb-icon"><i class="fa-solid fa-gauge-high"></i></div>All Enquiry
+    </a>
+
+    <div class="sb-group-label">Dashboards</div>
+    <a href="{% url 'dashboard' %}" class="sb-link active">
+      <div class="sb-icon"><i class="fa-solid fa-globe"></i></div>Overview
+      <i class="fa-solid fa-chevron-right sb-arrow"></i>
+    </a>
+    <div class="sb-group-label">Courses</div>
+    <a href="{% url 'all_courses' %}" class="sb-link">
+      <div class="sb-icon"><i class="fa-solid fa-graduation-cap"></i></div>Courses
+      <i class="fa-solid fa-chevron-right sb-arrow"></i>
+    </a>
+    <a href="{% url 'add_courses' %}" class="sb-link">
+      <div class="sb-icon"><i class="fa-solid fa-graduation-cap"></i></div>Add Courses
+      <i class="fa-solid fa-chevron-right sb-arrow"></i>
+    </a>
+
+    <div class="sb-group-label">Students</div>
+    <a href="{% url 'application' %}" class="sb-link">
+      <div class="sb-icon"><i class="fa-solid fa-users"></i></div>Applications
+      <i class="fa-solid fa-chevron-right sb-arrow"></i>
+    </a>
+    <a href="{% url 'all_student' %}" class="sb-link">
+      <div class="sb-icon"><i class="fa-solid fa-users"></i></div>Students
+      <i class="fa-solid fa-chevron-right sb-arrow"></i>
+    </a>
+    <a href="{% url 'add_student' %}" class="sb-link">
+      <div class="sb-icon"><i class="fa-solid fa-user-plus"></i></div>Add Student
+    </a>
+  
+    <div class="sb-group-label">Fees And Payments</div>
+        <a href="{% url 'fees_status' %}" class="sb-link">
+      <div class="sb-icon"><i class="fa-solid fa-users"></i></div>Fees Status
+      <i class="fa-solid fa-chevron-right sb-arrow"></i>
+    </a>
+
+    <div class="sb-divider"></div>
+   
+    <a href="{% url 'admin_logout' %}" class="sb-link">
+      <div class="sb-icon"><i class="fa-solid fa-right-from-bracket"></i></div>Logout
+    </a>
+
+  </nav>
+
+  <!-- FOOTER -->
+  <div class="sb-footer">
+    <div class="sb-footer-icon">
+      <i class="fa-solid fa-graduation-cap"></i>
+    </div>
+    
+      </div>
+    </div>
+  </div>
+
+</aside>

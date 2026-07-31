@@ -1,0 +1,120 @@
+{%extends 'admin_layout.html'%}
+{% block content %}
+<div class="modal fade" id="editStudent{{ student.id }}" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title">
+                    <i class="fa-solid fa-user-pen"></i> Edit Student
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"></button>
+            </div>
+
+            <form method="POST" action="{% url 'edit_student' student.id  %}">
+                {% csrf_token %}
+
+                <div class="modal-body">
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Student Name</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="name"
+                                   value="{{ student.name }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email"
+                                   class="form-control"
+                                   name="email"
+                                   value="{{ student.email }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="password"
+                                   value="{{ student.password }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Mobile Number</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="mobile"
+                                   value="{{ student.mobile }}">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Course</label>
+
+                            <select class="form-select" name="course">
+                                <option {% if student.course == "Python" %}selected{% endif %}>Python</option>
+                                <option {% if student.course == "Java" %}selected{% endif %}>Java</option>
+                                <option {% if student.course == "MERN Stack" %}selected{% endif %}>MERN Stack</option>
+                                <option {% if student.course == "Flutter" %}selected{% endif %}>Flutter</option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Gender</label>
+
+                            <select class="form-select" name="gender">
+                                <option {% if student.gender == "Male" %}selected{% endif %}>Male</option>
+                                <option {% if student.gender == "Female" %}selected{% endif %}>Female</option>
+                                <option {% if student.gender == "Other" %}selected{% endif %}>Other</option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Date of Joining</label>
+
+                            <input type="date"
+                                   class="form-control"
+                                   name="dob"
+                                   value="{{ student.dob|date:'Y-m-d' }}">
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Address</label>
+
+                            <textarea class="form-control"
+                                      rows="4"
+                                      name="address">{{ student.address }}</textarea>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                        Close
+                    </button>
+
+                    <button type="submit"
+                            class="btn btn-success">
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        Update Student
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
+        </div>
+    </div>
+            {% endblock %}

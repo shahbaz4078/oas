@@ -1,0 +1,275 @@
+{% extends 'admin_layout.html' %}
+{% block content %}
+
+<style>
+    h2{
+        margin-bottom:20px;
+    }
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+        background:#fff;
+    }
+
+    table th,
+    table td{
+        border:1px solid #ddd;
+        padding:12px;
+        text-align:center;
+    }
+
+    table th{
+        background:#0f086d;
+        color:white;
+    }
+
+    table tr:nth-child(even){
+        background:#f9f9f9;
+    }
+
+    table tr:hover{
+        background:#ececec;
+    }
+</style>
+
+<h2 class="text-light">Student List</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Mobile</th>
+            <th>Course</th>
+            <th>Gender</th>
+            <th>Date</th>
+            <th>Address</th>
+            <th>Status</th>
+            <th>Action</th>
+            <th>Delete</th>
+            <th>Edit</th>
+         
+        </tr>
+    </thead>
+
+    <tbody>
+
+    {% for student in students %}
+
+        <tr>
+            <td>{{ student.id }}</td>
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.password }}</td>
+            <td>{{ student.mobile }}</td>
+            <td>{{ student.course }}</td>
+            <td>{{ student.gender }}</td>
+            <td>{{ student.dob }}</td>
+            <td>{{ student.address }}</td>
+            <td>{{ student.status }}</td>
+
+            <td>
+                <form method="POST"
+      action="{% url 'update_student_status' student.id %}">
+
+    {% csrf_token %}
+
+    <div class="d-flex">
+
+        <select name="status" class="form-select form-select-sm">
+
+            <option value="Pending"
+                {% if student.status == "Pending" %}selected{% endif %}>
+                Pending
+            </option>
+
+            <option value="Document Verification"
+                {% if student.status == "Document Verification" %}selected{% endif %}>
+                Document Verification
+            </option>
+
+            <option value="Fee Submission"
+                {% if student.status == "Fee Submission" %}selected{% endif %}>
+                Fee Submission
+            </option>
+
+            <option value="Enrolled"
+                {% if student.status == "Enrolled" %}selected{% endif %}>
+                Enrolled
+            </option>
+
+            <option value="Rejected"
+                {% if student.status == "Rejected" %}selected{% endif %}>
+                Rejected
+            </option>
+
+        </select>
+
+        <button class="btn btn-success btn-sm ms-2">
+            Save
+        </button>
+
+    </div>
+
+</form>
+            </td>
+
+            <td>
+                <a href="{% url 'delete' student.id %}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Delete this student?')">
+                    Delete
+                </a>
+            </td>
+
+            <td>
+                <button class="btn btn-warning btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editStudent{{ student.id }}">
+                    <i class="fa-solid fa-pen"></i> Edit
+                </button>
+            </td>
+        </tr>
+
+        <!-- Edit Modal -->
+        <div class="modal fade" id="editStudent{{ student.id }}" tabindex="-1">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">
+                            <i class="fa-solid fa-user-pen"></i>
+                            Edit Student
+                        </h5>
+
+                        <button type="button"
+                                class="btn-close btn-close-white"
+                                data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <form method="POST"
+                          action="{% url 'edit_student' student.id %}">
+
+                        {% csrf_token %}
+
+                        <div class="modal-body">
+
+                            <div class="row">
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Student Name</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="name"
+                                           value="{{ student.name }}">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email"
+                                           class="form-control"
+                                           name="email"
+                                           value="{{ student.email }}">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="password"
+                                           value="{{ student.password }}">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Mobile</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="mobile"
+                                           value="{{ student.mobile }}">
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Course</label>
+
+                                    <select class="form-select" name="course">
+                                        <option value="Python" {% if student.course == "Python" %}selected{% endif %}>Python</option>
+
+                                        <option value="Java" {% if student.course == "Java" %}selected{% endif %}>Java</option>
+
+                                        <option value="MERN Stack" {% if student.course == "MERN Stack" %}selected{% endif %}>MERN Stack</option>
+
+                                        <option value="Flutter" {% if student.course == "Flutter" %}selected{% endif %}>Flutter</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Gender</label>
+
+                                    <select class="form-select" name="gender">
+                                        <option value="Male" {% if student.gender == "Male" %}selected{% endif %}>Male</option>
+
+                                        <option value="Female" {% if student.gender == "Female" %}selected{% endif %}>Female</option>
+
+                                        <option value="Other" {% if student.gender == "Other" %}selected{% endif %}>Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Date of Birth</label>
+
+                                    <input type="date"
+                                           class="form-control"
+                                           name="dob"
+                                           value="{{ student.dob|date:'Y-m-d' }}">
+                                </div>
+
+                                <div class="col-12 mb-3">
+                                    <label class="form-label">Address</label>
+
+                                    <textarea class="form-control"
+                                              rows="4"
+                                              name="address">{{ student.address }}</textarea>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Close
+                            </button>
+
+                            <button type="submit"
+                                    class="btn btn-success">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                Update Student
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    {% empty %}
+
+        <tr>
+            <td colspan="11">No students found.</td>
+        </tr>
+
+    {% endfor %}
+
+    </tbody>
+
+</table>
+
+{% endblock %}

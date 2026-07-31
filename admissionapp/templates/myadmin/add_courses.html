@@ -1,0 +1,86 @@
+{% extends 'admin_layout.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+        <style>
+ body{ background:#0e1014; 
+    font-family:Arial, Helvetica, sans-serif; } 
+ .course-card{ width:450px; 
+    margin:50px auto; 
+    background:#140606; 
+    border-radius:12px;
+     box-shadow:0 8px 20px rgba(0,0,0,.12); 
+     overflow:hidden; } 
+     .course-header{ 
+        background:#0d6efd; color:#1f1515; text-align:center; padding:18px; } .course-header h3{ margin:0; font-size:24px; font-weight:600; } .course-body{ padding:25px; } .form-group{ margin-bottom:18px; } .form-group label{ display:block; font-size:15px; font-weight:600; margin-bottom:8px; color:#333; } .form-control{ width:100%; padding:12px 15px; border:1px solid #ced4da; border-radius:8px; font-size:15px; outline:none; transition:.3s; box-sizing:border-box; } .form-control:focus{ border-color:#0d6efd; box-shadow:0 0 8px rgba(13,110,253,.25); } .btn-save{ width:100%; padding:12px; background:#198754; color:#271e1e; border:none; border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; transition:.3s; } .btn-save:hover{ background:#157347; transform:translateY(-2px); }
+    </style>
+    </head>
+    <body>
+        <form method="POST">
+            <div class="container mt-5">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4>Add Course</h4>
+                    </div>
+
+                    <div class="card-body">
+                        <form method="POST">
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                <label class="form-label text-light">Course Name</label>
+                                     <input type="text" name="course" id="" placeholder="Enter Course Name" class="form-control">
+
+
+                               
+                            </div>
+                           
+                            <div class="mb-3">
+                                <label class="form-label text-light">Session</label>
+                                <input type="text" name="session"
+                                    class="form-control"
+                                    placeholder="e.g. 2026-2027">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label text-light">Duration</label>
+                                <input type="text" name="duration"
+                                    class="form-control"
+                                    placeholder="e.g. 6 Months">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label text-light">Fees</label>
+                                <input type="number" name="fees"
+                                    class="form-control"
+                                    placeholder="Enter Course Fees">
+                            </div>
+
+                            <button type="submit" class="btn btn-success">
+                                Save Course
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% endblock %}
+    </body>
+</html>

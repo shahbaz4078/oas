@@ -1,0 +1,635 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sipher Web Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+   /*=====================================================
+        SIPHER WEB ACADEMY - PREMIUM LOGIN CSS
+=====================================================*/
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    position:relative;
+
+    background:
+    linear-gradient(rgba(8,20,37,.60),rgba(8,20,37,.65)),
+    url("{% static 'images/login image.jpg' %}");
+
+    background-size:cover;
+
+    background-position:center;
+
+    background-repeat:no-repeat;
+
+    background-attachment:fixed;
+
+}
+
+/*==========================================
+            DARK OVERLAY
+==========================================*/
+
+body::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top left,rgba(37,99,235,.25),transparent 40%),
+    radial-gradient(circle at bottom right,rgba(250,204,21,.12),transparent 35%);
+
+    z-index:1;
+
+}
+
+/*==========================================
+            GLOW EFFECTS
+==========================================*/
+
+body::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:450px;
+
+    height:450px;
+
+    border-radius:50%;
+
+    background:#2563EB;
+
+    filter:blur(160px);
+
+    top:-150px;
+
+    right:-150px;
+
+    opacity:.28;
+
+    animation:blob 12s linear infinite alternate;
+
+    z-index:1;
+
+}
+
+@keyframes blob{
+
+    from{
+        transform:translate(0,0);
+    }
+
+    to{
+        transform:translate(-80px,80px);
+    }
+
+}
+
+/*==========================================
+            NAVBAR
+==========================================*/
+
+.navbar{
+
+    position:fixed;
+
+    top:20px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:min(92%,1300px);
+
+    padding:14px 35px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.10);
+
+    backdrop-filter:blur(22px);
+
+    -webkit-backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.15);
+
+    box-shadow:
+    0 20px 45px rgba(0,0,0,.35);
+
+    z-index:999;
+
+    transition:.4s;
+
+}
+
+.navbar:hover{
+
+    background:rgba(255,255,255,.15);
+
+    transform:translateX(-50%) translateY(-2px);
+
+}
+
+/*==========================================
+            LOGIN CONTAINER
+==========================================*/
+
+.login-container{
+
+    position:relative;
+
+    z-index:10;
+
+}
+
+/*==========================================
+            LOGIN CARD
+==========================================*/
+
+.login-card{
+
+    width:430px;
+
+    padding:45px;
+
+    border-radius:28px;
+
+    background:rgba(255,255,255,.10);
+
+    backdrop-filter:blur(24px);
+
+    -webkit-backdrop-filter:blur(24px);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    box-shadow:
+    0 30px 60px rgba(0,0,0,.35),
+    inset 0 1px rgba(255,255,255,.20);
+
+    animation:floatCard 5s ease-in-out infinite;
+
+}
+
+@keyframes floatCard{
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+}
+
+/*==========================================
+            TITLE
+==========================================*/
+
+.login-card h2{
+
+    color:#fff;
+
+    text-align:center;
+
+    font-size:34px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    margin-bottom:40px;
+
+    text-shadow:0 10px 25px rgba(0,0,0,.35);
+
+}
+
+/*==========================================
+            INPUTS
+==========================================*/
+
+.input-group{
+
+    margin-bottom:20px;
+
+}
+
+.form-control{
+
+    height:58px;
+
+    border-radius:60px 0 0 60px;
+
+    border:1px solid rgba(255,255,255,.15);
+
+    background:rgba(255,255,255,.10);
+
+    color:#fff;
+
+    padding-left:22px;
+
+    font-size:15px;
+
+    transition:.35s;
+
+}
+
+.form-control::placeholder{
+
+    color:#dbe4f1;
+
+}
+
+.form-control:focus{
+
+    background:rgba(255,255,255,.18);
+
+    color:#fff;
+
+    border-color:#FACC15;
+
+    box-shadow:
+    0 0 20px rgba(250,204,21,.30);
+
+}
+
+.input-group-text{
+
+    border:none;
+
+    border-radius:0 60px 60px 0;
+
+    background:rgba(255,255,255,.12);
+
+    color:#fff;
+
+    padding:0 22px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+}
+
+.input-group-text:hover{
+
+    background:#2563EB;
+
+}
+
+/*==========================================
+            CHECKBOX
+==========================================*/
+
+.form-check-input{
+
+    background:transparent;
+
+    border:1px solid rgba(255,255,255,.40);
+
+}
+
+.form-check-input:checked{
+
+    background:#FACC15;
+
+    border-color:#FACC15;
+
+}
+
+.form-check-label{
+
+    color:#fff;
+
+    font-size:14px;
+
+}
+
+/*==========================================
+            LINKS
+==========================================*/
+
+.forgot{
+
+    color:#fff;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.forgot:hover{
+
+    color:#FACC15;
+
+}
+
+/*==========================================
+            BUTTON
+==========================================*/
+
+.login-btn{
+
+    width:100%;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:60px;
+
+    margin-top:12px;
+
+    background:linear-gradient(
+    135deg,
+    #2563EB,
+    #4F46E5,
+    #7C3AED);
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    box-shadow:
+    0 15px 35px rgba(79,70,229,.40);
+
+}
+
+.login-btn:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+    0 25px 45px rgba(79,70,229,.55);
+
+}
+
+/*==========================================
+            REGISTER
+==========================================*/
+
+.register{
+
+    margin-top:30px;
+
+    text-align:center;
+
+    color:#fff;
+
+    font-size:15px;
+
+}
+
+.register a{
+
+    color:#FACC15;
+
+    text-decoration:none;
+
+    font-weight:700;
+
+}
+
+.register a:hover{
+
+    text-decoration:underline;
+
+}
+
+/*==========================================
+            RESPONSIVE
+==========================================*/
+
+@media(max-width:768px){
+
+    .navbar{
+
+        width:95%;
+
+        padding:12px 20px;
+
+    }
+
+    .login-card{
+
+        width:92vw;
+
+        padding:35px 28px;
+
+    }
+
+    .login-card h2{
+
+        font-size:28px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    .login-card{
+
+        padding:30px 22px;
+
+        border-radius:22px;
+
+    }
+
+    .login-card h2{
+
+        font-size:25px;
+
+    }
+
+    .form-control{
+
+        height:54px;
+
+    }
+
+    .login-btn{
+
+        height:54px;
+
+    }
+
+}
+</style>
+</head>
+
+<body>
+    
+   
+
+    <div class="login-container">
+
+        <div class="login-card">
+            
+
+            <h2>Login</h2>
+            {% if error %}
+            <p style="color: red;">{{error}}</p>
+            {% endif %}
+            <form method="POST" action="{% url 'student_login' %}">
+
+                {% csrf_token %}
+
+                <div class="mb-3">
+
+                    <input type="text"
+                        class="form-control"
+                        name="email"
+                        placeholder="Username">
+
+                </div>
+
+                <div class="mb-3">
+
+                    <div class="input-group">
+
+                        <input
+                            type="password"
+                            id="password"
+                            class="form-control"
+                            name="password"
+                            placeholder="Password">
+
+                        <span class="input-group-text" id="togglePassword">
+
+                            <i class="fa-solid fa-eye"></i>
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-between mb-4">
+
+                    <div class="form-check">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox">
+
+                        <label class="form-check-label">
+
+                            Remember Me
+
+                        </label>
+
+                    </div>
+
+                    <a href="#" class="forgot">
+
+                        Forgot Password?
+
+                    </a>
+
+                </div>
+
+                <button type="submit" class="login-btn">
+
+                    LOGIN
+
+                </button>
+
+                <div class="register">
+
+                    Don't have an account?
+
+                    <a href="#">Register</a>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+<script>
+
+const togglePassword=document.getElementById("togglePassword");
+
+const password=document.getElementById("password");
+
+togglePassword.onclick=function(){
+
+if(password.type==="password"){
+
+password.type="text";
+
+togglePassword.innerHTML='<i class="fa-solid fa-eye-slash"></i>';
+
+}
+
+else{
+
+password.type="password";
+
+togglePassword.innerHTML='<i class="fa-solid fa-eye"></i>';
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
