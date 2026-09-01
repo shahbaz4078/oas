@@ -117,6 +117,11 @@ class Courses(models.Model):
     session=models.CharField(max_length=100)
     duration=models.CharField(max_length=100)
     fees=models.CharField(max_length=100)
+    course_image = models.ImageField(
+        upload_to="course_images/",
+        blank=True,
+        null=True
+    )
 
     def __str__(self):
         return self.coursename

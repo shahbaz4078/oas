@@ -1,155 +1,920 @@
 {% extends 'student/student_layout.html' %}
-
 {% block content %}
 
-<div class="content-card">
+<style>
+/*============================
+      HERO
+=============================*/
 
-    <h2>Student Dashboard</h2>
+/*============================
+        HERO
+=============================*/
 
-    <hr>
+.dashboard-hero{
 
-    <h4>Welcome {{ student.name }} 👋</h4>
+display:flex;
 
-    <p>
-        This is your dashboard.
-    </p>
+justify-content:space-between;
 
+align-items:center;
 
+padding:30px 35px;
 
-<main class="main">
-  <!-- PERSONAL INFO CARD -->
-  <div class="card">
-    <div class="card-header">
-      <div class="icon icon-blue"><i class="fa-solid fa-user"></i></div>
-      <h2>Personal Information</h2>
+margin-bottom:30px;
+
+border-radius:24px;
+
+background:#1A1D29;
+
+border:1px solid rgba(255,255,255,.06);
+
+box-shadow:0 15px 40px rgba(0,0,0,.25);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* glowing line */
+
+.dashboard-hero::before{
+
+content:"";
+
+position:absolute;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:3px;
+
+background:linear-gradient(90deg,#2563EB,#4F46E5,#8B5CF6);
+
+}
+
+.hero-left{
+
+display:flex;
+
+align-items:center;
+
+gap:22px;
+
+z-index:2;
+
+}
+
+.hero-avatar{
+
+width:95px;
+
+height:95px;
+
+border-radius:50%;
+
+overflow:hidden;
+
+border:4px solid rgba(255,255,255,.12);
+
+box-shadow:0 10px 30px rgba(37,99,235,.2);
+
+flex-shrink:0;
+
+}
+
+.hero-avatar img{
+
+width:100%;
+
+height:100%;
+
+object-fit:cover;
+
+}
+
+.hero-content h2{
+
+margin:0;
+
+font-size:34px;
+
+font-weight:700;
+
+color:#fff;
+
+}
+
+.hero-content h2 span{
+
+color:#3B82F6;
+
+}
+
+.hero-content p{
+
+margin-top:8px;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+color:#9CA3AF;
+
+font-size:15px;
+
+}
+
+.dot{
+
+width:5px;
+
+height:5px;
+
+background:#4B5563;
+
+border-radius:50%;
+
+}
+
+/* Status */
+
+.status-badge{
+
+padding:14px 22px;
+
+border-radius:50px;
+
+display:flex;
+
+align-items:center;
+
+gap:10px;
+
+font-weight:600;
+
+font-size:15px;
+
+border:1px solid;
+
+}
+
+.success{
+
+background:rgba(34,197,94,.12);
+
+border-color:rgba(34,197,94,.25);
+
+color:#4ADE80;
+
+}
+
+.warning{
+
+background:rgba(245,158,11,.12);
+
+border-color:rgba(245,158,11,.25);
+
+color:#FACC15;
+
+}
+
+.danger{
+
+background:rgba(239,68,68,.12);
+
+border-color:rgba(239,68,68,.25);
+
+color:#F87171;
+
+}
+
+/* floating circles */
+
+.dashboard-hero::after{
+
+content:"";
+
+position:absolute;
+
+right:-60px;
+
+bottom:-60px;
+
+width:220px;
+
+height:220px;
+
+border-radius:50%;
+
+background:rgba(59,130,246,.05);
+
+}
+
+@media(max-width:768px){
+
+.dashboard-hero{
+
+flex-direction:column;
+
+text-align:center;
+
+gap:25px;
+
+}
+
+.hero-left{
+
+flex-direction:column;
+
+}
+
+.hero-content p{
+
+justify-content:center;
+
+}
+
+}
+
+/*============================
+      GRID
+=============================*/
+
+.dashboard-grid{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:25px;
+
+margin-bottom:30px;
+
+}
+
+.dashboard-card{
+
+background:#1A1D29;
+
+border-radius:22px;
+
+padding:25px;
+
+box-shadow:0 15px 35px rgba(0,0,0,.18);
+
+}
+
+.section-title{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin-bottom:25px;
+
+padding-bottom:15px;
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.section-title i{
+
+width:42px;
+
+height:42px;
+
+background:#2563EB;
+
+border-radius:12px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+color:#fff;
+
+}
+
+.section-title h3{
+
+margin:0;
+
+color:#fff;
+
+font-size:20px;
+
+}
+
+/*============================
+      PROFILE
+=============================*/
+
+.profile-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:16px;
+}
+
+.profile-item{
+    background:#222638;
+    border-radius:14px;
+    padding:16px 18px;
+    border:1px solid rgba(255,255,255,.05);
+    transition:.3s;
+}
+
+.profile-item:hover{
+    transform:translateY(-3px);
+    border-color:#2563EB;
+    box-shadow:0 10px 25px rgba(37,99,235,.15);
+}
+
+.profile-item span{
+    display:block;
+    color:#9CA3AF;
+    font-size:12px;
+    margin-bottom:6px;
+}
+
+.profile-item strong{
+    display:block;
+    color:#fff;
+    font-size:15px;
+    font-weight:600;
+    word-break:break-word;
+}
+
+/* Address occupies full width */
+.profile-item.full{
+    grid-column:1/-1;
+}
+
+/*============================
+      COURSE
+=============================*/
+
+.course-image{
+
+    width:130px;
+
+    height:130px;
+
+    margin:10px auto 25px;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    border:3px solid rgba(255,255,255,.08);
+
+    background:#111827;
+
+    box-shadow:0 15px 30px rgba(0,0,0,.25);
+
+    transition:.35s;
+
+}
+
+.course-image:hover{
+
+    transform:translateY(-4px) scale(1.03);
+
+    box-shadow:0 20px 40px rgba(37,99,235,.25);
+
+}
+
+.course-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+}
+
+.course-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:14px;
+
+}
+
+.course-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px 20px;
+
+    background:#24293d;
+
+    border-radius:16px;
+
+    transition:.3s;
+
+}
+
+.course-row:hover{
+
+    background:#2b3148;
+
+}
+
+.course-row span{
+
+    color:#AAB4C8;
+
+    font-size:15px;
+
+}
+
+.course-row strong{
+
+    color:#fff;
+
+    font-size:16px;
+
+    font-weight:700;
+
+}
+.empty-course{
+
+height:300px;
+
+display:flex;
+
+flex-direction:column;
+
+align-items:center;
+
+justify-content:center;
+
+color:#777;
+
+gap:15px;
+
+}
+
+.empty-course i{
+
+font-size:50px;
+
+}
+
+/*============================
+      MOBILE
+=============================*/
+
+@media(max-width:992px){
+
+.dashboard-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+/*============================
+      QUICK LINKS
+=============================*/
+
+.quick-links{
+
+    width:100%;
+
+}
+
+.quick-btn{
+
+    width:100%;
+
+    height:64px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#0b204d,#150f83);
+
+    color:#fff;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:12px;
+
+    cursor:pointer;
+
+    transition:.35s;
+
+    box-shadow:0 10px 30px rgba(37,99,235,.25);
+
+}
+
+.quick-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 40px rgba(37,99,235,.35);
+
+    background:linear-gradient(135deg,#030f30,#4338CA);
+
+}
+
+.quick-btn i{
+
+    font-size:20px;
+
+}
+</style>  
+
+<!-- ==========================
+     HERO SECTION
+========================== -->
+
+<div class="dashboard-hero">
+
+    <div class="hero-left">
+
+        <div class="hero-avatar">
+
+            {% if student.photo %}
+
+                <img src="{{ student.photo.url }}" alt="{{ student.name }}">
+
+            {% else %}
+
+                <img src="https://ui-avatars.com/api/?name={{ student.name }}&background=2563EB&color=ffffff&size=300">
+
+            {% endif %}
+
+        </div>
+
+        <div class="hero-content">
+
+            <h2>
+
+                Welcome Back,
+
+                <span>{{ student.name }}</span>
+
+                👋
+
+            </h2>
+
+            <p>
+
+                Student ID :
+                <strong>#{{ student.id }}</strong>
+
+                <span class="dot"></span>
+
+                {{ student.course.coursename }}
+
+            </p>
+
+        </div>
+
     </div>
 
-    <!-- AVATAR ROW -->
-    <div class="avatar-row">
-      <div class="avatar">SA</div>
-      <div class="avatar-info">
-       <strong>{{ student.name }}</strong>
-        <span>Student ID: {{ student.id }} &nbsp;·&nbsp;  {{ student.course.coursename }}</span>
-      </div>
-     {% if student.status == 'Pending' %}
-<span class="badge bg-warning">Pending</span>
-{% elif student.status == 'Document Verification' %}
-<span class="badge bg-info">Document Verification</span>
-{% elif student.status == 'Fee Submission' %}
-<span class="badge bg-success">Enrolled</span>
-{% elif student.status == 'Enrolled' %}
-<span class="badge bg-success">Enrolled</span>
-{% elif student.status == 'Rejected' %}
-<span class="badge bg-danger">Rejected</span>
-{% else %}
-<span class="badge bg-warning">Pending</span>
-{% endif %}
-    </div>
+    <div class="hero-right">
 
-    <!-- INFO FIELDS -->
-    <div class="info-grid">
+        {% if student.status == "Enrolled" %}
 
-      <div class="info-item">
-        <label><i class="fa-solid fa-id-badge"></i> Student ID</label>
-       <div class="val">{{ student.id }}</div>
-      </div>
+            <span class="status-badge success">
 
-      <div class="info-item">
-        <label><i class="fa-solid fa-user"></i> Full Name</label>
-        <div class="val">{{ student.name }}</div>
-      </div>
+                <i class="fa-solid fa-circle-check"></i>
 
-      <div class="info-item">
-        <label><i class="fa-solid fa-envelope"></i> Email Address</label>
-       <div class="val">{{ student.email }}</div>
-      </div>
+                Active Student
 
-      <div class="info-item">
-        <label><i class="fa-solid fa-phone"></i> Phone Number</label>
-      <div class="val">{{ student.mobile }}</div>
-      </div>
+            </span>
 
-      <div class="info-item">
-        <label><i class="fa-solid fa-graduation-cap"></i> Course</label>
-        <div class="val">
-    <span class="badge badge-blue">
-        {{ student.course.coursename }}
-    </span>
-</div>
-      </div>
+        {% elif student.status == "Pending" %}
 
-   <div class="info-item">
-    <label><i class="fa-solid fa-venus-mars"></i> Gender</label>
-    <div class="val">{{ student.gender }}</div>
-</div>
+            <span class="status-badge warning">
 
-      <div class="info-item">
-    <label><i class="fa-solid fa-calendar-days"></i> Date of Birth</label>
-    <div class="val">{{ student.dob }}</div>
-</div>
+                <i class="fa-solid fa-clock"></i>
 
+                Pending
 
-      <div class="info-item">
-        <label><i class="fa-solid fa-circle-dot"></i> Status</label>
-       {% if student.status == 'Pending' %}
-<span class="badge bg-warning">Pending</span>
-{% elif student.status == 'Document Verification' %}
-<span class="badge bg-info">Document Verification</span>
-{% elif student.status == 'Fee Submission' %}
-<span class="badge bg-success">Enrolled</span>
-{% elif student.status == 'Enrolled' %}
-<span class="badge bg-success">Enrolled</span>
-{% elif student.status == 'Rejected' %}
-<span class="badge bg-danger">Rejected</span>
-{% else %}
-<span class="badge bg-warning">Pending</span>
-{% endif %}
-      </div>
+            </span>
 
-     <div class="info-item full">
-    <label><i class="fa-solid fa-location-dot"></i> Address</label>
-    <div class="val">{{ student.address }}</div>
-</div>
+        {% else %}
+
+            <span class="status-badge danger">
+
+                <i class="fa-solid fa-circle-xmark"></i>
+
+                {{ student.status }}
+
+            </span>
+
+        {% endif %}
 
     </div>
-  </div>
 
-  <!-- COURSE INFO CARD -->
-  <div class="card">
-    <div class="card-header">
-      <div class="icon icon-green"><i class="fa-solid fa-book-open"></i></div>
-      <h2>Course Details</h2>
-    </div>
-
-    <table class="course-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Course Name</th>
-          <th>Duration (Year)</th>
-          <th>Duration (Months)</th>
-          <th>Fees (₹)</th>
-        </tr>
-      </thead>
-    <tbody>
-{% if student.course %}
-<tr>
-    <td>1</td>
-    <td>{{ student.course.coursename }}</td>
-    <td>{{ student.course.session }}</td>
-    <td>{{ student.course.duration }}</td>
-    <td>₹ {{ student.course.fees }}</td>
-</tr>
-{% else %}
-<tr>
-    <td colspan="5" class="text-center">No course assigned.</td>
-</tr>
-{% endif %}
-</tbody>
-    </table>
-  </div>
-
-</main>
 </div>
 
-{% endblock %}
+<!-- ==========================
+     PROFILE + COURSE
+========================== -->
+
+<div class="dashboard-grid">
+
+    <!-- ================= STUDENT PROFILE ================= -->
+
+    <div class="dashboard-card">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-user"></i>
+
+            <h3>Student Profile</h3>
+
+        </div>
+ 
+       <div class="profile-list">
+
+    <div class="profile-item">
+        <span>Full Name</span>
+        <strong>{{ student.name }}</strong>
+    </div>
+
+    <div class="profile-item">
+        <span>Email</span>
+        <strong>{{ student.email }}</strong>
+    </div>
+
+    <div class="profile-item">
+        <span>Mobile</span>
+        <strong>{{ student.mobile }}</strong>
+    </div>
+
+    <div class="profile-item">
+        <span>Gender</span>
+        <strong>{{ student.gender }}</strong>
+    </div>
+
+    <div class="profile-item">
+        <span>Date of Birth</span>
+        <strong>{{ student.dob }}</strong>
+    </div>
+     <div class="profile-item">
+        <span>Address</span>
+        <strong>{{ student.address}}</strong>
+    </div>
+
+ 
+
+</div>
+
+    </div>
+
+    <!-- ================= COURSE DETAILS ================= -->
+
+    <div class="dashboard-card">
+
+        <div class="section-title">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <h3>Course Details</h3>
+
+        </div>
+
+        {% if student.course %}
+
+        <div class="course-image">
+
+            {% if student.course.course_image %}
+
+                <img src="{{ student.course.course_image.url }}">
+
+            {% else %}
+
+                <img src="https://via.placeholder.com/500x260?text=Course">
+
+            {% endif %}
+
+        </div>
+
+        <div class="course-info">
+
+            <div class="course-row">
+
+                <span>Course</span>
+
+                <strong>{{ student.course.coursename }}</strong>
+
+            </div>
+
+            <div class="course-row">
+
+                <span>Session</span>
+
+                <strong>{{ student.course.session }}</strong>
+
+            </div>
+
+            <div class="course-row">
+
+                <span>Duration</span>
+
+                <strong>{{ student.course.duration }}</strong>
+
+            </div>
+
+            <div class="course-row">
+
+                <span>Fees</span>
+
+                <strong>₹ {{ student.course.fees }}</strong>
+
+            </div>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-course">
+
+            <i class="fa-solid fa-book-open"></i>
+
+            <p>No Course Assigned</p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+<!-- ==========================
+        QUICK LINKS
+========================== -->
+
+<div class="dashboard-card">
+
+    <div class="section-title">
+
+        <i class="fa-solid fa-bolt"></i>
+
+        <h3>Quick Links</h3>
+
+    </div>
+
+    <div class="quick-links">
+
+    <button
+        type="button"
+        class="quick-btn"
+        data-bs-toggle="modal"
+        data-bs-target="#profilePhotoModal">
+
+        <i class="fa-solid fa-user-pen"></i>
+
+        Edit Profile
+
+    </button>
+
+</div>
+
+</div>
+<!-- ==========================
+     UPDATE PROFILE PHOTO
+========================== -->
+
+<div class="modal fade" id="profilePhotoModal" tabindex="-1">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header bg-primary text-white">
+
+                <h5 class="modal-title">
+
+                    <i class="fa-solid fa-camera"></i>
+
+                    Update Profile Photo
+
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+
+            </div>
+
+            <form method="POST"
+                  action="{% url 'update_profile_photo' %}"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <div class="modal-body text-center">
+
+                    {% if student.photo %}
+
+                        <img src="{{ student.photo.url }}"
+                             id="photoPreview"
+                             class="rounded-circle border shadow mb-3"
+                             width="150"
+                             height="150"
+                             style="object-fit:cover;">
+
+                    {% else %}
+
+                        <img src="https://ui-avatars.com/api/?name={{ student.name }}&background=2563EB&color=fff&size=300"
+                             id="photoPreview"
+                             class="rounded-circle border shadow mb-3"
+                             width="150"
+                             height="150"
+                             style="object-fit:cover;">
+
+                    {% endif %}
+
+                    <input
+                        type="file"
+                        name="photo"
+                        class="form-control"
+                        accept="image/*"
+                        onchange="previewPhoto(event)"
+                        required>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+
+                        Cancel
+
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+
+                        <i class="fa-solid fa-floppy-disk"></i>
+
+                        Update Photo
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+function previewPhoto(event){
+
+    const reader = new FileReader();
+
+    reader.onload = function(){
+
+        document.getElementById("photoPreview").src = reader.result;
+
+    }
+
+    reader.readAsDataURL(event.target.files[0]);
+
+}
+</script>
+  {% endblock %}

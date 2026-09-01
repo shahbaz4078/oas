@@ -1,3 +1,4 @@
+from django.core.checks import messages
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login ,logout
@@ -10,6 +11,8 @@ from django.shortcuts import get_object_or_404
 from .models import Courses
 import os
 from django.utils import timezone
+from django.contrib import messages
+from django.http import JsonResponse
 
 
 
@@ -36,15 +39,32 @@ def admin_login(request):
 
 @login_required(login_url='admin_login')
 def dashboard(request):
-    return render(request, 'dashboard.html')
+
+    total_students = Student.objects.count()
+    total_courses = Courses.objects.count()
+    total_enquiry = Enquiry.objects.count()
+
+    recent_students = Student.objects.order_by("-id")[:5]
+
+    context = {
+        "total_students": total_students,
+        "total_courses": total_courses,
+        "total_enquiry": total_enquiry,
+        "recent_students": recent_students,
+    }
+
+    return render(request, "dashboard.html", context)
 
 def admin_logout(request):
     logout(request)
     return redirect('admin_login')  # Redirect to the home page after logout
 
 def edit(request):
-    return render(request, 'edit.html')
+    student = Student.objects.get(id=request.session["student_id"])
 
+    return render(request, "edit.html", {
+        "student": student
+    })
 
 
 def add_student(request):
@@ -89,9 +109,13 @@ Sipher Web Academy
 
     return render(request, "add_student.html", {"courses": courses})
 def all_student(request):
+
     students = Student.objects.all()
+    courses = Courses.objects.all()
+
     return render(request, 'all_student.html', {
-        'students': students
+        'students': students,
+        'courses': courses,
     })
 
 def delete(request,id):
@@ -196,21 +220,29 @@ def student_logout(request):
 
 
 def add_courses(request):
+
     if request.method == "POST":
-        coursename = request.POST.get('coursename')
-        session = request.POST.get('session')
-        duration = request.POST.get('duration')
-        fees = request.POST.get('fees')
+
+        coursename = request.POST.get("coursename")
+        session = request.POST.get("session")
+        duration = request.POST.get("duration")
+        fees = request.POST.get("fees")
+
+        image = request.FILES.get("course_image")
 
         Courses.objects.create(
+
             coursename=coursename,
             session=session,
             duration=duration,
-            fees=fees
+            fees=fees,
+            course_image=image
+
         )
-        return redirect('dashboard')
-       
-    return render(request, 'myadmin/add_courses.html')
+
+        return redirect("all_course")
+
+    return render(request,"myadmin/add_courses.html")
 
 
 
@@ -228,7 +260,8 @@ def course_delete(request,id):
     return redirect('all_courses')
 
 def courses(request):
-    return render(request, 'courses.html')
+    courses = Courses.objects.all()
+    return render(request, 'courses.html', {'courses': courses})
 
 
 def student_application(request):
@@ -346,8 +379,11 @@ def student_application(request):
 
 def application(request):
     students = Student.objects.all()
-    return render(request, 'myadmin/application.html', {
-        'students': students
+    courses = Courses.objects.all()
+
+    return render(request, "myadmin/application.html", {
+        "students": students,
+        "courses": courses,
     })
 
 def edit_student(request, id):
@@ -356,12 +392,31 @@ def edit_student(request, id):
     if request.method == "POST":
         student.name = request.POST.get("name")
         student.email = request.POST.get("email")
-        student.password = request.POST.get("password")
         student.mobile = request.POST.get("mobile")
-        student.course = request.POST.get("course")
         student.gender = request.POST.get("gender")
         student.dob = request.POST.get("dob")
         student.address = request.POST.get("address")
+        student.category = request.POST.get("category")
+        student.father_name = request.POST.get("father_name")
+        student.mother_name = request.POST.get("mother_name")
+
+        # Update course
+        course_id = request.POST.get("course")
+        if course_id:
+            student.course = Courses.objects.get(id=course_id)
+
+        # Keep old password if not submitted
+        password = request.POST.get("password")
+        if password:
+            student.password = password
+
+        # Update photo
+        if request.FILES.get("photo"):
+            student.photo = request.FILES["photo"]
+
+        # Update signature
+        if request.FILES.get("signature"):
+            student.signature = request.FILES["signature"]
 
         student.save()
 
@@ -421,3 +476,53 @@ def enquity_delete(request,id):
     enquiry=get_object_or_404(Enquiry,id=id)
     enquiry.delete()
     return redirect('all_enquiry')
+
+def student_course(request):
+    student_id = request.session.get("student_id")
+    if not student_id:
+        return redirect("student_login")
+    
+    student = get_object_or_404(Student, id=student_id)
+    
+    return render(request, "student/student_course.html", {
+            "student": student,
+        })
+
+from django.shortcuts import get_object_or_404, redirect, render
+
+def course_edit(request, id):
+    course = get_object_or_404(Courses, id=id)
+
+    if request.method == "POST":
+        course.coursename = request.POST.get("coursename")
+        course.session = request.POST.get("session")
+        course.duration = request.POST.get("duration")
+        course.fees = request.POST.get("fees")
+
+        if request.FILES.get("course_image"):
+            course.course_image = request.FILES.get("course_image")
+
+        course.save()
+        return redirect("all_courses")
+
+
+
+def update_profile_photo(request):
+
+    student = Student.objects.get(id=request.session["student_id"])
+
+    if request.method == "POST":
+
+        if "photo" in request.FILES:
+
+            student.photo = request.FILES["photo"]
+            student.save()
+
+    return redirect("student_dashboard")
+
+
+def enquiry_bulk_delete(request):
+    if request.method == 'POST':
+        ids = request.POST.getlist('ids[]')
+        Enquiry.objects.filter(id__in=ids).delete()
+        return JsonResponse({'status': 'ok'})

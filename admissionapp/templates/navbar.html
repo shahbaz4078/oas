@@ -1,7 +1,205 @@
 
     {% load static %}
+    <head>
+             <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/custom_css/style.css' %}">
+
+    </head>
+    <style>
+/* ── NAVBAR ── */
+/* Navbar */
+.navbar{
+    width:60%;
+    padding:30px;
     
-     <nav class="navbar navbar-expand-lg ">
+}
+
+.nav-link:hover{
+    color:var(--c-yellow)!important;
+}
+
+/* Center Login Button */
+.login-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:140px;          /* Reduced width */
+    padding:10px 0;
+
+    margin:0 auto;        /* Centers the button */
+
+    gap:6px;
+
+    background:linear-gradient(135deg,#2563EB,#3B82F6);
+
+    color:#fff;
+    text-decoration:none;
+
+    font-size:15px;
+    font-weight:600;
+
+    border-radius:50px;
+
+    transition:.3s ease;
+
+    box-shadow:0 8px 20px rgba(37,99,235,.35);
+}
+
+.login-btn:hover{
+    color:#fff;
+    background:linear-gradient(135deg,#1D4ED8,#2563EB);
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(37,99,235,.45);
+}
+
+.login-btn i{
+    font-size:14px;
+}
+
+/* ── SECTION TITLE ── */
+.course-heading { background: #F8FAFC; }
+
+.line {
+  width: 90px;
+  height: 5px;
+  background: var(--c-yellow);
+  margin: 25px auto 0;
+  border-radius: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--c-blue);
+  border-radius: 50%;
+}
+
+.title-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: bold;
+  color: var(--c-blue);
+}
+
+.main-title {
+  font-size: 73px;
+  color: var(--c-dark);
+  font-weight: bold;
+}
+
+.title-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+.title-divider span {
+  width: 50px;
+  height: 2px;
+  background: var(--c-yellow);
+}
+.title-divider i { color: var(--c-yellow); }
+
+/* ── MODE CARDS ── */
+.mode-card {
+  background: var(--c-white);
+  border-radius: 20px;
+  padding: 28px 24px 0;
+  box-shadow: 0 4px 28px rgba(0, 0, 0, .07);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: transform .25s, box-shadow .25s;
+  overflow: hidden;
+}
+.mode-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 48px rgba(0, 0, 0, .12);
+}
+.offline-card { border-bottom: 4px solid var(--c-yellow); }
+.online-card  { border-bottom: 4px solid var(--c-blue); }
+
+.icon-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--c-orange), var(--c-yellow));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: var(--c-white);
+}
+.icon-circle.blue {
+  background: linear-gradient(135deg, var(--c-blue), var(--c-blue-light));
+}
+
+.orange-line,
+.blue-line {
+  width: 36px;
+  height: 3px;
+  border-radius: 2px;
+  margin-top: 10px;
+}
+.orange-line { background: var(--c-orange); }
+.blue-line   { background: var(--c-blue); }
+
+.classroom-img { max-height: 180px; object-fit: cover; }
+.online-image  { position: relative; display: inline-block; }
+.laptop-img    { max-height: 180px; object-fit: contain; }
+.wifi-icon {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 28px;
+  color: var(--c-blue);
+  opacity: .75;
+}
+
+.feature-area,
+.feature-box-online {
+  margin: 24px -24px 0;
+  padding: 16px 12px;
+  border-radius: 0 0 16px 16px;
+}
+.feature-area       { background: #fff8f0; }
+.feature-box-online { background: #f0f5ff; }
+.feature-area p,
+.feature-box-online p {
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0;
+}
+
+.feature-icon,
+.feature-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--c-white);
+  margin: 0 auto 8px;
+}
+.feature-icon   { background: linear-gradient(135deg, var(--c-orange), var(--c-yellow)); }
+.feature-circle { background: linear-gradient(135deg, var(--c-blue), var(--c-blue-light)); }
+</style>
+     <nav class="navbar navbar-expand-lg mx-auto" >
             <div class="container-fluid ml-5 "
                 style="background-color:#0F172A; border-radius: 15px; ">
                 <img src="{% static 'images/SipherWebLogo-CzTrOqHm.png' %}"
@@ -21,19 +219,19 @@
                     <ul class="navbar-nav mx-auto p-3 mb-2 mb-lg-0 gap-5">
                         <li class="nav-item">
                             <a class="nav-link active " style="font-weight: bold; color:#F8FAFC; font-style: italic;"
-                                aria-current="page" href="#">Home</a>
+                                aria-current="page" href="{% url 'home' %}">Home</a>
                         </li>
                         <li class="nav-item" >
                             <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;" href="#">About</a>
                         </li>
                         <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"  href="#">Courses</a>
+                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"  href="{% url 'courses' %}">Courses</a>
                         </li>
                         <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"href="#">Enquiry</a>
+                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"href="{% url 'enquiry' %}">Enquiry</a>
                             <li>
                                 <div class="d-flex ms-auto">
-    <a href="{% url 'admin_login' %}" class="login-btn">
+    <a href="{% url 'student_login' %}" class="login-btn">
         <i class="fa-solid fa-right-to-bracket"></i>
         Login
     </a>
@@ -43,3 +241,11 @@
                     </div>
                 </div>
             </nav>
+            <div class="container-fluid p-0">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>

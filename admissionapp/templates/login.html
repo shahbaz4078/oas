@@ -13,67 +13,84 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <style>
-    *{
+ /* ==========================
+        GOOGLE FONT
+========================== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:'Poppins',sans-serif;
 }
-
 body{
 
-    height:100vh;
+    min-height:100vh;
 
+    background:#0F172A;
+
+    background-image:
+
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+
+        radial-gradient(circle at top right,#10B98122,transparent 35%),
+
+        radial-gradient(circle at bottom left,#22C55E22,transparent 35%);
+
+    background-size:
+        40px 40px,
+        40px 40px,
+        auto,
+        auto;
+
+}
+/* ==========================
+        PAGE
+========================== */
+
+.login-page{
+    min-height:100vh;
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
-    background:url("{% static 'images/login image.jpg' %}");
-
-    background-size:cover;
-
-    background-position:center;
-
-    overflow:hidden;
-
+    padding:30px;
 }
 
-body::before{
-
-    content:"";
-
-    position:absolute;
-
-    inset:0;
-
-    background:rgba(87, 112, 88, 0.45);
-
-}
-
-.login-container{
-
-    position:relative;
-
-    z-index:5;
-
-}
+/* ==========================
+        CARD
+========================== */
 
 .login-card{
 
-    width:380px;
+    width:100%;
+    max-width:430px;
 
-    padding:40px;
+    background:#1E293B;
 
-    border-radius:25px;
+    border:1px solid #334155;
 
-  background: rgba(255, 255, 255, 0.15); /* Transparent white */
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px); /* Safari support */
+    border-radius:20px;
 
-    border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    padding:45px;
+
+    box-shadow:0 20px 50px rgba(0,0,0,.35);
+
+    text-align:center;
+
+}
+
+/* ==========================
+        LOGO
+========================== */
+
+.logo{
+
+    width:90px;
+
+    margin-bottom:20px;
 
 }
 
@@ -81,290 +98,302 @@ body::before{
 
     color:#fff;
 
-    text-align:center;
-
-    margin-bottom:35px;
+    font-size:32px;
 
     font-weight:700;
 
-    letter-spacing:1px;
+    margin-bottom:8px;
 
 }
 
-.form-control{
+.subtitle{
 
-    height:50px;
+    color:#94A3B8;
+
+    font-size:15px;
+
+    margin-bottom:35px;
+
+}
+
+/* ==========================
+        FORM
+========================== */
+
+.form-group{
+
+    text-align:left;
+
+    margin-bottom:22px;
+
+}
+
+.form-group label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#CBD5E1;
+
+    font-size:14px;
+
+    font-weight:500;
+
+}
+
+.input-box{
+
+    display:flex;
+
+    align-items:center;
+
+    background:#0F172A;
+
+    border:1px solid #334155;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+}
+
+.input-box:focus-within{
+
+    border-color:#2563EB;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+
+}
+
+.input-box i{
+
+    width:55px;
+
+    text-align:center;
+
+    color:#64748B;
+
+}
+
+.input-box input{
+
+    flex:1;
 
     border:none;
 
-    border-radius:50px;
+    outline:none;
 
-    background:rgba(255,255,255,.15);
+    background:none;
 
-    color:white;
+    color:#fff;
 
-    padding-left:20px;
+    height:54px;
 
-}
-
-.form-control::placeholder{
-
-    color:#ddd;
+    font-size:15px;
 
 }
 
-.form-control:focus{
+.input-box input::placeholder{
 
-    background:rgba(255,255,255,.22);
-
-    color:white;
-
-    box-shadow:none;
+    color:#64748B;
 
 }
 
-.input-group-text{
+#togglePassword{
 
-    background:rgba(255,255,255,.15);
+    width:55px;
 
     border:none;
 
-    color:white;
+    background:none;
+
+    color:#94A3B8;
 
     cursor:pointer;
 
-    border-radius:0 50px 50px 0;
-
 }
 
-.form-check-label{
-
-    color:white;
-
-}
-
-.forgot{
-
-    color:white;
-
-    text-decoration:none;
-
-}
-
-.forgot:hover{
-
-    color:#ffc107;
-
-}
+/* ==========================
+        BUTTON
+========================== */
 
 .login-btn{
 
     width:100%;
 
-    height:50px;
+    height:54px;
 
     border:none;
 
-    border-radius:50px;
+    border-radius:12px;
 
-    background:linear-gradient(135deg,#007BFF,#00C6FF);
+    margin-top:10px;
 
-    color:white;
+    background:#2563EB;
 
-    font-size:18px;
+    color:#fff;
 
-    font-weight:700;
+    font-size:16px;
 
-    transition:.4s;
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
 
 }
 
 .login-btn:hover{
 
-    transform:translateY(-4px);
+    background:#1D4ED8;
 
-    box-shadow:0 15px 35px rgba(0,123,255,.5);
-
-}
-
-.register{
-
-    text-align:center;
-
-    color:white;
-
-    margin-top:25px;
+    transform:translateY(-2px);
 
 }
 
-.register a{
+/* ==========================
+        FOOTER
+========================== */
 
-    color:#ffc107;
+.footer{
 
-    text-decoration:none;
+    margin-top:30px;
 
-    font-weight:600;
+    color:#64748B;
+
+    font-size:13px;
+
+    line-height:1.8;
 
 }
-.navbar{
-    position:fixed;
-    top:20px;
-    left:50%;
-    transform:translateX(-50%);
 
-    width:75%;
-    padding:12px 30px;
+/* ==========================
+        MOBILE
+========================== */
 
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
+@media(max-width:500px){
 
-    border-radius:20px;
+.login-card{
 
-    background:rgba(20,30,48,.45);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
+    padding:30px 22px;
 
-    border:1px solid rgba(255,255,255,.15);
-
-    box-shadow:
-        0 15px 40px rgba(0,0,0,.35),
-        inset 0 1px rgba(255,255,255,.12);
-
-    z-index:999;
-    transition:.4s;
 }
 
-.navbar:hover{
-    background:rgba(20,30,48,.60);
-    box-shadow:0 20px 50px rgba(0,0,0,.45);
+.login-card h2{
+
+    font-size:26px;
+
+}
+
+.logo{
+
+    width:75px;
+
+}
+
 }
 </style>
 </head>
 
 <body>
     
-     <nav class="navbar navbar-expand-lg ">
-            <div class="container-fluid ml-5 "
-                style="background-color:#0F172A; border-radius: 15px; ">
-                <img src="{% static 'images/SipherWebLogo-CzTrOqHm.png' %}"
-                    alt="Logo" width="80" height="50"
-                    class="d-inline-block align-text-top">
-                <a class="navbar-brand" style="color:darkblue;" href="#">Sipher
-                    Web Academy</a>
-                <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse "
-                    id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto p-3 mb-2 mb-lg-0 gap-5">
-                        <li class="nav-item">
-                            <a class="nav-link active " style="font-weight: bold; color:#F8FAFC; font-style: italic;"
-                                aria-current="page" href="{% url 'home' %}">Home</a>
-                        </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;" href="#">About</a>
-                        </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"  href="#">Courses</a>
-                        </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"href="{% url 'enquiry' %}">Enquiry</a>
-                        </form>
-                    </div>
-                </div>
-            </nav>
+ {% load static %}
 
-    <div class="login-container">
+<div class="login-page">
 
-        <div class="login-card">
-            
+    <div class="login-card">
 
-            <h2>Login</h2>
-            {% if error %}
-            <p style="color: red;">{{error}}</p>
-            {% endif %}
-            <form method="POST">
+        <img src="{% static 'images/SipherWebLogo-CzTrOqHm.png' %}"
+             class="logo"
+             alt="Logo">
 
-                {% csrf_token %}
+        <h2>Admin Login</h2>
 
-                <div class="mb-3">
+        <p class="subtitle">
+            Sign in to your administrator account
+        </p>
 
-                    <input type="text"
-                        class="form-control"
+        {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="form-group">
+
+                <label>Username</label>
+
+                <div class="input-box">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
                         name="username"
-                        placeholder="Username">
+                        placeholder="Enter username"
+                        required>
 
                 </div>
 
-                <div class="mb-3">
+            </div>
 
-                    <div class="input-group">
+            <div class="form-group">
 
-                        <input
-                            type="password"
-                            id="password"
-                            class="form-control"
-                            name="password"
-                            placeholder="Password">
+                <label>Password</label>
 
-                        <span class="input-group-text" id="togglePassword">
+                <div class="input-box">
 
-                            <i class="fa-solid fa-eye"></i>
+                    <i class="fa-solid fa-lock"></i>
 
-                        </span>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter password"
+                        required>
 
-                    </div>
+                    <button
+                        type="button"
+                        id="togglePassword">
 
-                </div>
+                        <i class="fa-solid fa-eye"></i>
 
-                <div class="d-flex justify-content-between mb-4">
-
-                    <div class="form-check">
-
-                        <input
-                            class="form-check-input"
-                            type="checkbox">
-
-                        <label class="form-check-label">
-
-                            Remember Me
-
-                        </label>
-
-                    </div>
-
-                    <a href="#" class="forgot">
-
-                        Forgot Password?
-
-                    </a>
+                    </button>
 
                 </div>
 
-                <button type="submit" class="login-btn">
+            </div>
 
-                    LOGIN
+            <button class="login-btn">
 
-                </button>
+                <i class="fa-solid fa-right-to-bracket"></i>
 
-                <div class="register">
+                Login
 
-                    Don't have an account?
+            </button>
 
-                    <a href="#">Register</a>
+        </form>
 
-                </div>
+        <div class="footer">
 
-            </form>
+            Secure Administration Portal
+
+            <br>
+
+            © 2026 Sipher Web Academy
 
         </div>
 
     </div>
+
+</div>
 
 <script>
 

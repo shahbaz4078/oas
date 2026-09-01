@@ -20,62 +20,235 @@
             rel="stylesheet">
 
         <style>
- body{ background:#0e1014; 
-    font-family:Arial, Helvetica, sans-serif; } 
- .course-card{ width:450px; 
-    margin:50px auto; 
-    background:#140606; 
-    border-radius:12px;
-     box-shadow:0 8px 20px rgba(0,0,0,.12); 
-     overflow:hidden; } 
-     .course-header{ 
-        background:#0d6efd; color:#1f1515; text-align:center; padding:18px; } .course-header h3{ margin:0; font-size:24px; font-weight:600; } .course-body{ padding:25px; } .form-group{ margin-bottom:18px; } .form-group label{ display:block; font-size:15px; font-weight:600; margin-bottom:8px; color:#333; } .form-control{ width:100%; padding:12px 15px; border:1px solid #ced4da; border-radius:8px; font-size:15px; outline:none; transition:.3s; box-sizing:border-box; } .form-control:focus{ border-color:#0d6efd; box-shadow:0 0 8px rgba(13,110,253,.25); } .btn-save{ width:100%; padding:12px; background:#198754; color:#271e1e; border:none; border-radius:8px; font-size:16px; font-weight:600; cursor:pointer; transition:.3s; } .btn-save:hover{ background:#157347; transform:translateY(-2px); }
+body{
+    background:#0F172A;
+}
+
+/* Container */
+.course-wrapper{
+    max-width:720px;
+    margin:40px auto;
+}
+/* Card */
+
+.course-card{
+    background:#1A1F2E;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:22px;
+    overflow:hidden;
+    box-shadow:0 20px 45px rgba(0,0,0,.25);
+}
+
+/* Header */
+
+.course-header{
+    padding:28px 32px;
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+}
+
+.course-header h3{
+    color:#fff;
+    margin:0;
+    font-size:28px;
+    font-weight:700;
+}
+
+.course-header p{
+    color:rgba(255,255,255,.85);
+    margin:8px 0 0;
+    font-size:14px;
+}
+
+/* Body */
+
+.course-body{
+    padding:32px;
+}
+
+/* Labels */
+
+.form-label{
+    color:#E2E8F0;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+/* Inputs */
+
+.form-control{
+    background:#242B3D;
+    border:1px solid rgba(255,255,255,.08);
+    color:#fff;
+    border-radius:14px;
+    padding:13px 15px;
+    transition:.3s;
+}
+
+.form-control::placeholder{
+    color:#94A3B8;
+}
+
+.form-control:focus{
+    background:#242B3D;
+    color:#fff;
+    border-color:#2563EB;
+    box-shadow:0 0 0 4px rgba(37,99,235,.15);
+}
+
+/* File Upload */
+
+input[type=file]{
+    padding:10px;
+}
+
+/* Button */
+
+.btn-save{
+    width:100%;
+    border:none;
+    border-radius:14px;
+    padding:14px;
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+    color:#fff;
+    font-weight:600;
+    font-size:16px;
+    transition:.3s;
+}
+
+.btn-save:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(37,99,235,.3);
+}
+
+/* Divider */
+
+.form-section{
+    margin-bottom:22px;
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.course-body{
+    padding:22px;
+}
+
+.course-header{
+    padding:22px;
+}
+
+.course-header h3{
+    font-size:24px;
+}
+
+}
+input[type="file"]{
+    background:#2A3042;
+    color:#CBD5E1;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:14px;
+}
+
+input[type="file"]::file-selector-button{
+
+    background:#2563EB;   /* Change this color */
+
+    color:#fff;
+
+    border:none;
+
+    padding:12px 20px;
+
+    margin-right:18px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+}
+
+input[type="file"]::file-selector-button:hover{
+
+    background:#1D4ED8;   /* Hover color */
+
+}
     </style>
     </head>
     <body>
         <form method="POST">
-            <div class="container mt-5">
-                <div class="card shadow">
-                    <div class="card-header bg-primary text-white">
-                        <h4>Add Course</h4>
+          <div class="course-wrapper">
+
+<div class="course-card">
+                  <div class="course-header">
+
+<h3>
+<i class="fa-solid fa-book-open me-2"></i>
+Add New Course
+</h3>
+
+<p>
+Create a new course by filling in the information below.
+</p>
+
+</div>
                     </div>
 
-                    <div class="card-body">
-                        <form method="POST">
+                   <div class="course-body">
+                        <form method="POST"  action="{% url 'add_courses' %}"
+      enctype="multipart/form-data">
                             {% csrf_token %}
 
-                            <div class="mb-3">
-                                <label class="form-label text-light">Course Name</label>
+                     <div class="form-section">
+                                <label class="form-label text-light"><i class="fa-solid fa-book me-2"></i>Course Name</label>
                                      <input type="text" name="course" id="" placeholder="Enter Course Name" class="form-control">
 
 
                                
                             </div>
                            
-                            <div class="mb-3">
-                                <label class="form-label text-light">Session</label>
+                        <div class="form-section">
+                                <label class="form-label text-light"><i class="fa-solid fa-calendar-days me-2"></i>Session</label>
                                 <input type="text" name="session"
                                     class="form-control"
                                     placeholder="e.g. 2026-2027">
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label text-light">Duration</label>
+                  <div class="form-section">
+                                <label class="form-label text-light"><i class="fa-solid fa-clock me-2"></i>Duration</label>
                                 <input type="text" name="duration"
                                     class="form-control"
                                     placeholder="e.g. 6 Months">
                             </div>
-
-                            <div class="mb-3">
-                                <label class="form-label text-light">Fees</label>
+<div class="form-section">
+                                <label class="form-label text-light"><i class="fa-solid fa-indian-rupee-sign me-2"></i>Fees</label>
                                 <input type="number" name="fees"
                                     class="form-control"
                                     placeholder="Enter Course Fees">
                             </div>
+                            <div class="col-md-6 mb-3">
 
-                            <button type="submit" class="btn btn-success">
-                                Save Course
-                            </button>
+    <label class="form-label text-light"><i class="fa-solid fa-image me-2"></i>
+
+        Course Image
+
+    </label>
+
+    <input
+        type="file"
+        name="course_image"
+        class="form-control"
+        accept="image/*">
+
+</div>
+<button type="submit" class="btn-save">
+
+<i class="fa-solid fa-floppy-disk me-2"></i>
+
+Save Course
+
+</button>
                         </form>
                     </div>
                 </div>

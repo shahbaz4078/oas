@@ -2,40 +2,355 @@
 {% block content %}
 
 <style>
-    h2{
-        margin-bottom:20px;
-    }
+   /* ===================================
+        STUDENT TABLE
+=================================== */
 
-    table{
-        width:100%;
-        border-collapse:collapse;
-        background:#fff;
-    }
+.page-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+    flex-wrap:wrap;
+    gap:15px;
+}
 
-    table th,
-    table td{
-        border:1px solid #ddd;
-        padding:12px;
-        text-align:center;
-    }
+.page-title h2{
+    margin:0;
+    color:#F8FAFC;
+    font-size:28px;
+    font-weight:700;
+}
 
-    table th{
-        background:#0f086d;
-        color:white;
-    }
+.table-card{
+    background:#1E293B;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
 
-    table tr:nth-child(even){
-        background:#f9f9f9;
-    }
+.table-responsive{
+    overflow-x:auto;
+}
 
-    table tr:hover{
-        background:#ececec;
-    }
+.student-table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:1500px;
+}
+
+.student-table thead{
+    background:#111827;
+}
+
+.student-table th{
+
+    padding:16px;
+
+    color:#CBD5E1;
+
+    font-size:13px;
+
+    font-weight:600;
+
+    text-transform:uppercase;
+
+    letter-spacing:.05em;
+
+    white-space:nowrap;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+}
+
+.student-table td{
+
+    padding:15px;
+
+    color:#E5E7EB;
+
+    font-size:14px;
+
+    white-space:nowrap;
+
+    border-bottom:1px solid rgba(255,255,255,.05);
+
+    vertical-align:middle;
+
+}
+
+.student-table tbody tr{
+
+    transition:.25s;
+
+}
+
+.student-table tbody tr:hover{
+
+    background:#263247;
+
+}
+
+.student-table tbody tr:last-child td{
+
+    border-bottom:none;
+
+}
+
+/* ===================================
+        STATUS
+=================================== */
+
+.status{
+
+    padding:6px 14px;
+
+    border-radius:30px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.status-pending{
+
+    background:#F59E0B20;
+
+    color:#FBBF24;
+
+}
+
+.status-enrolled{
+
+    background:#10B98120;
+
+    color:#34D399;
+
+}
+
+.status-rejected{
+
+    background:#EF444420;
+
+    color:#F87171;
+
+}
+
+.status-doc{
+
+    background:#3B82F620;
+
+    color:#60A5FA;
+
+}
+
+/* ===================================
+        BUTTONS
+=================================== */
+
+.btn-action{
+
+    border:none;
+
+    padding:8px 14px;
+
+    border-radius:10px;
+
+    font-size:13px;
+
+    font-weight:500;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.btn-save{
+
+    background:#10B981;
+
+    color:#fff;
+
+}
+
+.btn-save:hover{
+
+    background:#059669;
+
+    color:#fff;
+
+}
+
+.btn-delete{
+
+    background:#DC2626;
+
+    color:#fff;
+
+}
+
+.btn-delete:hover{
+
+    background:#B91C1C;
+
+    color:#fff;
+
+}
+
+.btn-edit{
+
+    background:#2563EB;
+
+    color:#fff;
+
+}
+
+.btn-edit:hover{
+
+    background:#1D4ED8;
+
+    color:#fff;
+
+}
+
+/* ===================================
+        SELECT
+=================================== */
+
+.form-select{
+
+    background:#0F172A;
+
+    color:#fff;
+
+    border:1px solid #334155;
+
+    min-width:190px;
+
+}
+
+.form-select:focus{
+
+    background:#0F172A;
+
+    color:#fff;
+
+    border-color:#2563EB;
+
+    box-shadow:none;
+
+}
+
+/* ===================================
+        MODAL
+=================================== */
+
+.modal-content{
+
+    background:#1E293B;
+
+    border:none;
+
+    border-radius:18px;
+
+    color:#fff;
+
+}
+
+.modal-header{
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.modal-footer{
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+.modal-body .form-control,
+.modal-body .form-select,
+.modal-body textarea{
+
+    background:#0F172A;
+
+    color:#fff;
+
+    border:1px solid #334155;
+
+}
+
+.modal-body .form-control:focus,
+.modal-body .form-select:focus,
+.modal-body textarea:focus{
+
+    background:#0F172A;
+
+    color:#fff;
+
+    border-color:#2563EB;
+
+    box-shadow:none;
+
+}
+
+.modal-body label{
+
+    color:#CBD5E1;
+
+    margin-bottom:6px;
+
+}
+
+/* ===================================
+        EMPTY
+=================================== */
+
+.empty-row{
+
+    text-align:center;
+
+    color:#94A3B8;
+
+    padding:35px;
+
+}
+
+/* ===================================
+        RESPONSIVE
+=================================== */
+
+@media(max-width:992px){
+
+.page-title{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+}
 </style>
 
-<h2 class="text-light">Student List</h2>
+<div class="page-title">
 
-<table>
+    <h2>
+        <i class="fa-solid fa-users me-2"></i>
+        Student List
+    </h2>
+
+</div>
+
+<div class="table-card">
+
+<div class="table-responsive">
+
+<table class="student-table">
     <thead>
         <tr>
             <th>ID</th>
@@ -69,7 +384,26 @@
             <td>{{ student.gender }}</td>
             <td>{{ student.dob }}</td>
             <td>{{ student.address }}</td>
-            <td>{{ student.status }}</td>
+          <td>
+
+{% if student.status == "Pending" %}
+<span class="status status-pending">Pending</span>
+
+{% elif student.status == "Document Verification" %}
+<span class="status status-doc">Document Verification</span>
+
+{% elif student.status == "Fee Submission" %}
+<span class="status status-doc">Fee Submission</span>
+
+{% elif student.status == "Enrolled" %}
+<span class="status status-enrolled">Enrolled</span>
+
+{% else %}
+<span class="status status-rejected">Rejected</span>
+
+{% endif %}
+
+</td>
 
             <td>
                 <form method="POST"
@@ -108,7 +442,7 @@
 
         </select>
 
-        <button class="btn btn-success btn-sm ms-2">
+        <button class="btn-action btn-save">
             Save
         </button>
 
@@ -119,14 +453,14 @@
 
             <td>
                 <a href="{% url 'delete' student.id %}"
-                   class="btn btn-danger btn-sm"
+                 class="btn-action btn-delete"
                    onclick="return confirm('Delete this student?')">
                     Delete
                 </a>
             </td>
 
             <td>
-                <button class="btn btn-warning btn-sm"
+                <button class="btn-action btn-edit"
                         data-bs-toggle="modal"
                         data-bs-target="#editStudent{{ student.id }}">
                     <i class="fa-solid fa-pen"></i> Edit
@@ -191,19 +525,27 @@
                                            value="{{ student.mobile }}">
                                 </div>
 
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Course</label>
+                              <div class="col-md-6 mb-3">
 
-                                    <select class="form-select" name="course">
-                                        <option value="Python" {% if student.course == "Python" %}selected{% endif %}>Python</option>
+    <label class="form-label">Course</label>
 
-                                        <option value="Java" {% if student.course == "Java" %}selected{% endif %}>Java</option>
+    <select class="form-select" name="course">
 
-                                        <option value="MERN Stack" {% if student.course == "MERN Stack" %}selected{% endif %}>MERN Stack</option>
+        {% for course in courses %}
 
-                                        <option value="Flutter" {% if student.course == "Flutter" %}selected{% endif %}>Flutter</option>
-                                    </select>
-                                </div>
+        <option
+            value="{{ course.id }}"
+            {% if student.course.id == course.id %}selected{% endif %}>
+
+            {{ course.coursename }}
+
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+</div>
 
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Gender</label>
@@ -271,5 +613,7 @@
     </tbody>
 
 </table>
+</div>
+</div>
 
 {% endblock %}

@@ -1,212 +1,365 @@
-{% extends 'admin_layout.html'  %}
+{% extends 'admin_layout.html' %}
 {% block content %}
-<div class="container-fluid mt-4">
 
-    <!-- Statistics -->
-    <div class="row g-4">
+<style>
+/* ═══════════════════════════════════
+   DASHBOARD — GLASSMORPHISM THEME
+═══════════════════════════════════ */
+.dash { padding: 8px 4px 40px; }
 
-        <div class="col-lg-3 col-md-6">
-            <div class="dashboard-card stat-card purple">
-                <div>
-                    <small>Total Students</small>
-                    <h2 class="text-light">1,245</h2>
-                    <span class="text-success">
-                        <i class="fa-solid fa-arrow-trend-up"></i> +12%
-                    </span>
-                </div>
+/* ── STAT CARDS ── */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 14px; margin-bottom: 18px;
+}
+@media(max-width:1100px){ .stat-row{ grid-template-columns:repeat(2,1fr); } }
+@media(max-width:576px) { .stat-row{ grid-template-columns:1fr; } }
 
-                <div class="stat-icon">
-                    <i class="fa-solid fa-users"></i>
-                </div>
-            </div>
-        </div>
+.sc {
+  border-radius: 16px; padding: 20px;
+  position: relative; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform .25s, box-shadow .25s;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 12px;
+}
+.sc:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
 
-        <div class="col-lg-3 col-md-6">
-            <div class="dashboard-card stat-card blue">
-                <div>
-                    <small>Courses</small>
-                    <h2 class="text-light">24</h2>
-                    <span class="text-info">
-                        <i class="fa-solid fa-book"></i> Active
-                    </span>
-                </div>
+.sc::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; height: 2px;
+}
+.sc-purple::before { background: linear-gradient(90deg,#8b5cf6,#6d28d9); }
+.sc-blue::before   { background: linear-gradient(90deg,#3b82f6,#2563eb); }
+.sc-orange::before { background: linear-gradient(90deg,#fb923c,#f97316); }
+.sc-green::before  { background: linear-gradient(90deg,#4ade80,#16a34a); }
 
-                <div class="stat-icon">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                </div>
-            </div>
-        </div>
+.sc::after {
+  content: ''; position: absolute;
+  width: 90px; height: 90px; border-radius: 50%;
+  right: -10px; bottom: -20px;
+  opacity: .1; filter: blur(18px); pointer-events: none;
+}
+.sc-purple::after { background: #8b5cf6; }
+.sc-blue::after   { background: #3b82f6; }
+.sc-orange::after { background: #fb923c; }
+.sc-green::after  { background: #4ade80; }
 
-        <div class="col-lg-3 col-md-6">
-            <div class="dashboard-card stat-card orange">
-                <div>
-                    <small>Teachers</small>
-                    <h2 class="text-light">32</h2>
-                    <span class="text-warning">
-                        Full Time
-                    </span>
-                </div>
+.sc-left {}
+.sc-label { font-size: 10.5px; font-weight: 600; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 4px; }
+.sc-val   { font-size: 26px; font-weight: 800; color: #fff; line-height: 1; margin-bottom: 6px; }
+.sc-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; font-weight: 600;
+  padding: 2px 9px; border-radius: 100px;
+}
+.sc-purple .sc-badge { background: rgba(139,92,246,.12); color: #a78bfa; }
+.sc-blue   .sc-badge { background: rgba(59,130,246,.12);  color: #60a5fa; }
+.sc-orange .sc-badge { background: rgba(251,146,60,.12);  color: #fb923c; }
+.sc-green  .sc-badge { background: rgba(74,222,128,.12);  color: #4ade80; }
 
-                <div class="stat-icon">
-                    <i class="fa-solid fa-chalkboard-user"></i>
-                </div>
-            </div>
-        </div>
+.sc-ico {
+  width: 48px; height: 48px; border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; flex-shrink: 0; position: relative; z-index: 1;
+}
+.sc-purple .sc-ico { background: rgba(139,92,246,.15); color: #a78bfa; }
+.sc-blue   .sc-ico { background: rgba(59,130,246,.15);  color: #60a5fa; }
+.sc-orange .sc-ico { background: rgba(251,146,60,.15);  color: #fb923c; }
+.sc-green  .sc-ico { background: rgba(74,222,128,.15);  color: #4ade80; }
 
-        <div class="col-lg-3 col-md-6">
-            <div class="dashboard-card stat-card green">
-                <div>
-                    <small>Revenue</small>
-                    <h2 class="text-light">₹2.5L</h2>
-                    <span class="text-success">
-                        +18%
-                    </span>
-                </div>
+/* ── LAYOUT ── */
+.dash-grid {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 16px;
+}
+@media(max-width:1000px){ .dash-grid{ grid-template-columns:1fr; } }
 
-                <div class="stat-icon">
-                    <i class="fa-solid fa-indian-rupee-sign"></i>
-                </div>
-            </div>
-        </div>
+/* ── GLASS CARD ── */
+.g-card {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 18px; padding: 20px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+.g-title {
+  font-size: 14px; font-weight: 700; color: #e2e8f0;
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 10px;
+  margin-bottom: 16px;
+}
+.g-title i { color: #a78bfa; }
+
+/* ── TABLE ── */
+.dash-table { width: 100%; border-collapse: collapse; }
+.dash-table thead th {
+  background: rgba(255,255,255,0.03);
+  font-size: 10.5px; font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase; letter-spacing: .07em;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  white-space: nowrap;
+}
+.dash-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  transition: background .15s;
+}
+.dash-table tbody tr:hover { background: rgba(255,255,255,0.03); }
+.dash-table tbody tr:last-child { border-bottom: none; }
+.dash-table tbody td {
+  padding: 12px 14px; font-size: 13px;
+  color: rgba(255,255,255,0.72); vertical-align: middle;
+}
+
+/* photo */
+.stu-photo {
+  width: 36px; height: 36px;
+  border-radius: 50%; object-fit: cover;
+  border: 1.5px solid rgba(255,255,255,0.1);
+}
+
+/* name cell */
+.td-name strong { font-size: 13px; font-weight: 600; color: #f1f5f9; display: block; }
+.td-name small  { font-size: 11px; color: rgba(255,255,255,0.3); }
+
+/* course */
+.td-course {
+  display: inline-flex;
+  background: rgba(109,40,217,0.1);
+  border: 1px solid rgba(109,40,217,0.2);
+  color: #a78bfa; padding: 2px 10px;
+  border-radius: 7px; font-size: 11.5px; font-weight: 600;
+}
+
+/* status/payment badges */
+.b-enrolled  { background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.2); color:#4ade80; font-size:11px; font-weight:600; padding:2px 10px; border-radius:100px; display:inline-flex; align-items:center; gap:4px; }
+.b-pending   { background:rgba(250,204,21,0.1); border:1px solid rgba(250,204,21,0.2); color:#facc15; font-size:11px; font-weight:600; padding:2px 10px; border-radius:100px; display:inline-flex; align-items:center; gap:4px; }
+.b-inactive  { background:rgba(248,113,113,0.1); border:1px solid rgba(248,113,113,0.2); color:#f87171; font-size:11px; font-weight:600; padding:2px 10px; border-radius:100px; display:inline-flex; align-items:center; gap:4px; }
+.b-paid      { background:rgba(74,222,128,0.1); border:1px solid rgba(74,222,128,0.2); color:#4ade80; font-size:11px; font-weight:600; padding:2px 10px; border-radius:100px; }
+.b-unpaid    { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); color:rgba(255,255,255,0.35); font-size:11px; font-weight:600; padding:2px 10px; border-radius:100px; }
+.bdot { width:5px; height:5px; border-radius:50%; background:currentColor; animation:bd 2s ease infinite; }
+@keyframes bd { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+.td-date { font-size:12px; color:rgba(255,255,255,0.28) !important; }
+
+/* ── QUICK ACTIONS ── */
+.qa {
+  width: 100%; padding: 11px 14px; border-radius: 11px; border: none;
+  display: flex; align-items: center; gap: 10px;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all .2s; margin-bottom: 8px;
+  text-decoration: none; font-family: 'Poppins', sans-serif;
+}
+.qa:last-child { margin-bottom: 0; }
+.qa-ic { width: 30px; height: 30px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+.qa-arr { margin-left: auto; font-size: 10px; opacity: .3; }
+.qa:hover .qa-arr { opacity: .7; transform: translateX(3px); }
+.qa:hover { transform: translateX(2px); }
+
+.qa-1 { background:rgba(139,92,246,0.1); border:1px solid rgba(139,92,246,0.2); color:#c4b5fd; }
+.qa-1 .qa-ic { background:rgba(139,92,246,0.2); color:#a78bfa; }
+.qa-2 { background:rgba(250,204,21,0.08); border:1px solid rgba(250,204,21,0.18); color:#fde68a; }
+.qa-2 .qa-ic { background:rgba(250,204,21,0.15); color:#facc15; }
+.qa-3 { background:rgba(74,222,128,0.08); border:1px solid rgba(74,222,128,0.18); color:#bbf7d0; }
+.qa-3 .qa-ic { background:rgba(74,222,128,0.15); color:#4ade80; }
+.qa-4 { background:rgba(59,130,246,0.08); border:1px solid rgba(59,130,246,0.18); color:#bfdbfe; }
+.qa-4 .qa-ic { background:rgba(59,130,246,0.15); color:#60a5fa; }
+.qa-5 { background:rgba(156,163,175,0.08); border:1px solid rgba(156,163,175,0.15); color:#d1d5db; }
+.qa-5 .qa-ic { background:rgba(156,163,175,0.12); color:#9ca3af; }
+.qa-6 { background:rgba(248,113,113,0.08); border:1px solid rgba(248,113,113,0.18); color:#fecaca; }
+.qa-6 .qa-ic { background:rgba(248,113,113,0.15); color:#f87171; }
+
+/* view all btn */
+.btn-glass {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 14px; border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: rgba(255,255,255,0.5); font-size:12px; font-weight:600;
+  text-decoration: none; transition: all .18s;
+}
+.btn-glass:hover { background:rgba(255,255,255,0.1); color:#fff; }
+
+/* empty */
+.td-empty { text-align:center; padding:36px; color:rgba(255,255,255,0.25); font-size:13px; }
+</style>
+
+<div class="dash">
+
+  <!-- ── STAT CARDS ── -->
+  <div class="stat-row">
+
+    <div class="sc sc-purple">
+      <div class="sc-left">
+        <div class="sc-label">Total Students</div>
+        <div class="sc-val">1,245</div>
+        <span class="sc-badge"><i class="fa-solid fa-arrow-trend-up"></i> +12% this month</span>
+      </div>
+      <div class="sc-ico"><i class="fa-solid fa-users"></i></div>
+    </div>
+
+    <div class="sc sc-blue">
+      <div class="sc-left">
+        <div class="sc-label">Active Courses</div>
+        <div class="sc-val">24</div>
+        <span class="sc-badge"><i class="fa-solid fa-book"></i> All active</span>
+      </div>
+      <div class="sc-ico"><i class="fa-solid fa-graduation-cap"></i></div>
+    </div>
+
+    <div class="sc sc-orange">
+      <div class="sc-left">
+        <div class="sc-label">Enquiries</div>
+        <div class="sc-val">89</div>
+        <span class="sc-badge"><i class="fa-solid fa-envelope"></i> 12 new today</span>
+      </div>
+      <div class="sc-ico"><i class="fa-solid fa-envelope-open-text"></i></div>
+    </div>
+
+    <div class="sc sc-green">
+      <div class="sc-left">
+        <div class="sc-label">Revenue</div>
+        <div class="sc-val">₹2.5L</div>
+        <span class="sc-badge"><i class="fa-solid fa-arrow-trend-up"></i> +18% growth</span>
+      </div>
+      <div class="sc-ico"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+    </div>
+
+  </div>
+
+  <!-- ── MAIN GRID ── -->
+  <div class="dash-grid">
+
+    <!-- RECENT STUDENTS TABLE -->
+    <div class="g-card">
+      <div class="g-title">
+        <span><i class="fa-solid fa-clock-rotate-left"></i> &nbsp;Recent Students</span>
+        <a href="{% url 'all_student' %}" class="btn-glass">View All →</a>
+      </div>
+
+      <table class="dash-table">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Status</th>
+            <th>Payment</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in recent_students %}
+          <tr>
+
+            <td>
+              {% if student.photo %}
+                <img src="{{ student.photo.url }}" class="stu-photo" alt="{{ student.name }}">
+              {% else %}
+                <img src="https://ui-avatars.com/api/?name={{ student.name }}&background=2563eb&color=fff&size=36"
+                     class="stu-photo" alt="{{ student.name }}">
+              {% endif %}
+            </td>
+
+            <td class="td-name">
+              <strong>{{ student.name }}</strong>
+              <small>{{ student.email }}</small>
+            </td>
+
+            <td>
+              {% if student.course %}
+                <span class="td-course">{{ student.course.coursename }}</span>
+              {% else %}
+                <span style="color:rgba(255,255,255,0.2);font-size:12px">—</span>
+              {% endif %}
+            </td>
+
+            <td>
+              {% if student.status == "Enrolled" or student.status == "enrolled" %}
+                <span class="b-enrolled"><span class="bdot"></span>{{ student.status }}</span>
+              {% elif student.status == "Pending" or student.status == "pending" %}
+                <span class="b-pending"><span class="bdot"></span>{{ student.status }}</span>
+              {% else %}
+                <span class="b-inactive"><span class="bdot"></span>{{ student.status }}</span>
+              {% endif %}
+            </td>
+
+            <td>
+              {% if student.payment_status == "Submitted" or student.payment_status == "Verified" %}
+                <span class="b-paid">Paid</span>
+              {% else %}
+                <span class="b-unpaid">Pending</span>
+              {% endif %}
+            </td>
+
+            <td class="td-date">{{ student.created_at|date:"d M Y" }}</td>
+
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="6" class="td-empty">
+              <i class="fa-solid fa-inbox" style="font-size:32px;display:block;margin-bottom:8px;opacity:.2"></i>
+              No students found.
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- QUICK ACTIONS -->
+    <div class="g-card">
+      <div class="g-title">
+        <span><i class="fa-solid fa-bolt"></i> &nbsp;Quick Actions</span>
+      </div>
+
+      <a href="{% url 'add_student' %}" class="qa qa-1">
+        <div class="qa-ic"><i class="fa-solid fa-user-plus"></i></div>
+        Add Student
+        <i class="fa-solid fa-chevron-right qa-arr"></i>
+      </a>
+
+      <a href="{% url 'all_student' %}" class="qa qa-2">
+        <div class="qa-ic"><i class="fa-solid fa-users"></i></div>
+        Manage Students
+        <i class="fa-solid fa-chevron-right qa-arr"></i>
+      </a>
+
+      <a href="{% url 'add_courses' %}" class="qa qa-3">
+        <div class="qa-ic"><i class="fa-solid fa-book-medical"></i></div>
+        Add Course
+        <i class="fa-solid fa-chevron-right qa-arr"></i>
+      </a>
+
+      <a href="{% url 'all_courses' %}" class="qa qa-4">
+        <div class="qa-ic"><i class="fa-solid fa-book-open"></i></div>
+        Manage Courses
+        <i class="fa-solid fa-chevron-right qa-arr"></i>
+      </a>
+
+      <a href="{% url 'all_enquiry' %}" class="qa qa-5">
+        <div class="qa-ic"><i class="fa-solid fa-envelope"></i></div>
+        View Enquiries
+        <i class="fa-solid fa-chevron-right qa-arr"></i>
+      </a>
+
+      <a href="{% url 'fees_status' %}" class="qa qa-6">
+        <div class="qa-ic"><i class="fa-solid fa-money-check-dollar"></i></div>
+        Fee Verification
+        <i class="fa-solid fa-chevron-right qa-arr"></i>
+      </a>
 
     </div>
 
-
-
-    <!-- Charts -->
-
-    <div class="row mt-4">
-
-        <div class="col-lg-8">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex justify-content-between align-items-center mb-4">
-
-                    <h5 class="text-light">Student Enrollments</h5>
-
-                    <button class="btn btn-sm btn-outline-dark text-light">
-                        This Month
-                    </button>
-
-                </div>
-
-                <canvas id="enrollChart" height="100"></canvas>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="col-lg-4">
-
-            <div class="dashboard-card">
-
-                <h5 class="mb-4 text-light">Course Distribution</h5>
-
-                <canvas id="courseChart"></canvas>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- Recent Students -->
-
-    <div class="row mt-4">
-
-        <div class="col-lg-8">
-
-            <div class="dashboard-card">
-
-                <div class="d-flex justify-content-between mb-3">
-
-                    <h5 class="text-light">Recent Students</h5>
-
-                    <button class="btn btn-sm btn-primary">
-                        View All
-                    </button>
-
-                </div>
-
-                <table class="table table-dark table-borderless align-middle">
-
-                    <thead>
-
-                        <tr>
-
-                            <th>Name</th>
-                            <th>Course</th>
-                            <th>Status</th>
-                            <th>Date</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-                            <td>Shahbaz Ansari</td>
-                            <td>Python</td>
-                            <td><span class="badge bg-success">Active</span></td>
-                            <td>Today</td>
-                        </tr>
-
-                        <tr>
-                            <td>Rahul Kumar</td>
-                            <td>Java</td>
-                            <td><span class="badge bg-warning">Pending</span></td>
-                            <td>Yesterday</td>
-                        </tr>
-
-                        <tr>
-                            <td>Aman Singh</td>
-                            <td>Web Development</td>
-                            <td><span class="badge bg-primary">Active</span></td>
-                            <td>2 Days Ago</td>
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </div>
-
-        </div>
-
-
-
-        <div class="col-lg-4">
-
-            <div class="dashboard-card">
-
-                <h5 class="mb-3 text-light">Quick Actions</h5>
-
-                <button class="btn btn-primary w-100 mb-3" href="{% url 'add_student' %}">
-                    <i class="fa-solid fa-user-plus"></i>
-                    Add Student
-                </button>
-
-                <button class="btn btn-warning w-100 mb-3">
-                    <i class="fa-solid fa-user-pen"></i>
-                    Edit Student
-                </button>
-
-                <button class="btn btn-success w-100">
-                    <i class="fa-solid fa-book"></i>
-                    Manage Courses
-                </button>
-
-            </div>
-
-        </div>
-
-    </div>
-
+  </div>
 </div>
+
 {% endblock %}

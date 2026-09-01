@@ -1,0 +1,278 @@
+{% extends 'student/student_layout.html' %}
+{% load static %}
+{% block content %}
+<style>
+
+    /* ── COURSE CARD ── */
+.course-card {
+  position: relative;
+  max-width: 420px;
+  background: #111420;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.course-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.5);
+}
+
+/* top glow line */
+.course-card-glow {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563EB, #8b5cf6, #FACC15);
+  z-index: 1;
+}
+
+/* ── HEADER ── */
+.cc-header {
+  padding: 36px 28px 28px;
+  background: linear-gradient(135deg, #1e3a8a 0%, #4f46e5 60%, #6d28d9 100%);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* bg decoration */
+.cc-header::before {
+  content: '';
+  position: absolute;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  top: -60px; right: -60px;
+  pointer-events: none;
+}
+.cc-header::after {
+  content: '';
+  position: absolute;
+  width: 140px; height: 140px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  bottom: -40px; left: -30px;
+  pointer-events: none;
+}
+
+.cc-image{
+
+    width:100%;
+
+    height:180px;
+
+    overflow:hidden;
+
+    border-radius:18px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+    border:2px solid rgba(255,255,255,.15);
+
+}
+
+.cc-image img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.5s ease;
+
+}
+
+.cc-image:hover img{
+
+    transform:scale(1.08);
+
+}
+.cc-badge {
+  display: inline-block;
+  background: rgba(74,222,128,0.15);
+  border: 1px solid rgba(74,222,128,0.3);
+  color: #4ade80;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 100px;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+
+.cc-title {
+  font-size: 20px; font-weight: 800;
+  color: #fff; margin-bottom: 4px;
+  position: relative; z-index: 1;
+  line-height: 1.2;
+}
+
+.cc-sub {
+  font-size: 12px; color: rgba(255,255,255,0.5);
+  margin: 0; position: relative; z-index: 1;
+}
+
+/* ── BODY ── */
+.cc-body {
+  padding: 8px 24px 16px;
+}
+
+.cc-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.cc-row-icon {
+  width: 40px; height: 40px;
+  border-radius: 11px;
+  border: 1px solid;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.cc-row:hover .cc-row-icon { transform: scale(1.1) rotate(-4deg); }
+
+.cc-row-info {
+  display: flex; flex-direction: column; gap: 2px;
+}
+.cc-row-label {
+  font-size: 10px; font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase; letter-spacing: 0.07em;
+}
+.cc-row-val {
+  font-size: 14px; font-weight: 600;
+  color: rgba(255,255,255,0.85);
+}
+.cc-fees {
+  font-size: 20px; font-weight: 800;
+  background: linear-gradient(90deg, #4ade80, #22c55e);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── FOOTER ── */
+.cc-footer {
+  padding: 0 24px 24px;
+}
+.cc-btn {
+  width: 100%;
+  padding: 13px;
+  border: none; border-radius: 14px;
+  background: linear-gradient(135deg, #2563EB, #6d28d9);
+  color: #fff;
+  font-size: 14px; font-weight: 600;
+  display: flex; align-items: center;
+  justify-content: center; gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+  transition: all 0.25s ease;
+  letter-spacing: 0.02em;
+}
+.cc-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(37,99,235,0.5);
+  background: linear-gradient(135deg, #1d4ed8, #5b21b6);
+}
+.cc-btn:active { transform: scale(0.98); }
+</style>
+
+<div class="course-card">
+
+  <!-- GLOW TOP BORDER -->
+  <div class="course-card-glow"></div>
+
+  <!-- HEADER -->
+ <div class="cc-header">
+
+    <div class="cc-image">
+
+        {% if student.course.course_image %}
+
+            <img src="{{ student.course.course_image.url }}" height="260" width="500"
+                 alt="{{ student.course.coursename }}">
+
+        {% else %}
+
+            <img src="https://via.placeholder.com/500x260?text=No+Image"
+                 alt="No Image">
+
+        {% endif %}
+
+    </div>
+
+    <div class="cc-badge">
+        Active Course
+    </div>
+
+    <h3 class="cc-title">
+        {{ student.course.coursename }}
+    </h3>
+
+    <p class="cc-sub">
+        Sipher Web Academy
+    </p>
+
+</div>
+
+
+  <!-- BODY -->
+  <div class="cc-body">
+
+    <div class="cc-row">
+      <div class="cc-row-icon" style="background:rgba(59,130,246,0.1);color:#3b82f6;border-color:rgba(59,130,246,0.2)">
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+      <div class="cc-row-info">
+        <span class="cc-row-label">Session</span>
+        <span class="cc-row-val">{{ student.course.session }}</span>
+      </div>
+    </div>
+
+    <div class="cc-row">
+      <div class="cc-row-icon" style="background:rgba(74,222,128,0.1);color:#4ade80;border-color:rgba(74,222,128,0.2)">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+      <div class="cc-row-info">
+        <span class="cc-row-label">Duration</span>
+        <span class="cc-row-val">{{ student.course.duration }}</span>
+      </div>
+    </div>
+
+    <div class="cc-row" style="border-bottom:none;margin-bottom:0">
+      <div class="cc-row-icon" style="background:rgba(250,204,21,0.1);color:#facc15;border-color:rgba(250,204,21,0.2)">
+        <i class="fa-solid fa-indian-rupee-sign"></i>
+      </div>
+      <div class="cc-row-info">
+        <span class="cc-row-label">Course Fees</span>
+        <span class="cc-row-val cc-fees">₹ {{ student.course.fees }}</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="cc-footer">
+    <button class="cc-btn">
+      <i class="fa-solid fa-book-open"></i>
+      View Syllabus
+    </button>
+  </div>
+
+</div>
+
+{% endblock %}
+
+
+

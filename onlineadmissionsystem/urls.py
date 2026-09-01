@@ -45,6 +45,7 @@ urlpatterns = [
     path('application/',views.application,name='application'),
     path("all_student/<int:id>/edit/", views.edit_student, name="edit_student"),
     path("all_student/<int:id>/status/",views.update_student_status,name="update_student_status"),
+
    
     #fees submission
     path("student_fee_submission/",views.student_fee_submission,name="student_fee_submission"),
@@ -54,6 +55,19 @@ urlpatterns = [
 
     path("verify_payment/<int:id>/",views.verify_payment,name="verify_payment"),
     path("reject_payment/<int:id>/",views.reject_payment,name="reject_payment"),
+
+    #student course
+    path("student_course/",views.student_course,name="student_course"),
+
+    #admin course
+    path("all_courses/<int:id>/edit/",views.course_edit,name="course_edit"),
+    path("all_courses/<int:id>/delete/",views.course_delete,name="course_delete"),
+
+    path(
+    "update_profile_photo/",
+    views.update_profile_photo,
+    name="update_profile_photo"
+),
  
 
 ]

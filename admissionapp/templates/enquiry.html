@@ -16,6 +16,20 @@
             rel="stylesheet">
         <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <style>
+        body{
+    min-height:100vh;
+    background:#F8FAFC;
+    background-image:
+        linear-gradient(rgba(37,99,235,.06) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(37,99,235,.06) 1px,transparent 1px),
+        radial-gradient(circle at top right,#2563EB20,transparent 30%),
+        radial-gradient(circle at bottom left,#4F46E520,transparent 35%);
+    background-size:
+        45px 45px,
+        45px 45px,
+        auto,
+        auto;
+}
         .navbar{
     
     display:inline-flex;
@@ -35,13 +49,120 @@ color:#FACC15 !important;
         /* ===========================
    ENQUIRY FORM
 =========================== */
+.hero{
 
-.enquiry-card{
-    background:#18181B;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:20px;
-    padding:30px;
-    box-shadow:0 10px 30px rgba(0,0,0,.35);
+    text-align:center;
+
+    padding:70px 20px 40px;
+
+}
+
+.hero-tag{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:10px 20px;
+
+    border-radius:40px;
+
+    background:#EEF4FF;
+
+    color:#2563EB;
+
+    font-size:13px;
+
+    font-weight:700;
+
+}
+
+.hero h1{
+
+    margin:22px 0 14px;
+
+    font-size:58px;
+
+    font-weight:800;
+
+    color:#0F172A;
+
+}
+
+.hero span{
+
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+
+
+
+    color:transparent;
+
+}
+
+.hero p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:#64748B;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+}
+.card{
+
+    max-width:1000px;
+
+    margin:auto;
+
+    border:none;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    box-shadow:0 25px 60px rgba(15,23,42,.08);
+
+}
+.card-header{
+
+    padding:28px;
+
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+
+}
+
+.card-header h3{
+
+    color:#fff;
+
+    font-size:28px;
+
+    font-weight:700;
+
+}
+.head-desc{
+
+    color:rgba(255,255,255,.85);
+
+    margin-top:8px;
+
+    margin-bottom:0;
+
+}
+.card-body{
+
+    background:#fff;
+
+    padding:35px;
+
 }
 
 .enquiry-title{
@@ -67,100 +188,108 @@ color:#FACC15 !important;
 
 .form-control,
 .form-select{
-    background:#27272A;
-    border:1px solid rgba(255,255,255,.08);
-    color:#fff;
-    border-radius:12px;
-    padding:12px 15px;
+
+    height:58px;
+
+    border-radius:14px;
+
+    border:1px solid #CBD5E1;
+
+    background:#F8FAFC;
+
     transition:.3s;
+
 }
 
-.form-control::placeholder{
-    color:#9CA3AF;
+textarea.form-control{
+
+    height:160px;
+
 }
 
 .form-control:focus,
 .form-select:focus{
-    background:#27272A;
-    color:#fff;
-    border-color:#8B5CF6;
-    box-shadow:0 0 15px rgba(139,92,246,.25);
+
+    background:#fff;
+
+    border-color:#2563EB;
+
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+
 }
+.form-label{
 
-textarea.form-control{
-    resize:none;
-    min-height:140px;
-}
-
-/* Buttons */
-
-.btn-submit{
-    background:linear-gradient(135deg,#6D28D9,#8B5CF6);
-    color:#fff;
-    border:none;
-    padding:12px 30px;
-    border-radius:12px;
     font-weight:600;
-    transition:.3s;
+
+    color:#334155;
+
+    margin-bottom:10px;
+
+}
+.btn-primary{
+
+    background:linear-gradient(135deg,#2563EB,#4F46E5);
+
+    border:none;
+
+    border-radius:12px;
+
+    padding:13px 30px;
+
+    font-weight:600;
+
 }
 
-.btn-submit:hover{
+.btn-primary:hover{
+
     transform:translateY(-3px);
-    box-shadow:0 10px 20px rgba(109,40,217,.35);
-    color:#fff;
+
 }
 
-.btn-reset{
-    background:#27272A;
-    color:#fff;
-    border:none;
-    padding:12px 30px;
+.btn-secondary{
+
     border-radius:12px;
-    margin-left:10px;
-    transition:.3s;
+
+    padding:13px 30px;
+
+}
+.bg-circle{
+
+    position:fixed;
+
+    border-radius:50%;
+
+    z-index:-1;
+
+    filter:blur(20px);
+
 }
 
-.btn-reset:hover{
-    background:#374151;
-    color:#fff;
+.one{
+
+    width:280px;
+
+    height:280px;
+
+    background:#2563EB15;
+
+    top:-80px;
+
+    right:-80px;
+
 }
 
-/* Card Header */
+.two{
 
-.card-header{
-    background:linear-gradient(135deg,#6D28D9,#8B5CF6);
-    border:none;
-    border-radius:18px 18px 0 0 !important;
-    padding:18px 25px;
-}
+    width:350px;
 
-.card-header h3{
-    margin:0;
-    color:#fff;
-    font-weight:600;
-}
+    height:350px;
 
-/* Card Body */
+    background:#4F46E510;
 
-.card-body{
-    background:#18181B;
-    border-radius:0 0 18px 18px;
-}
+    bottom:-120px;
 
-/* Responsive */
-
-@media(max-width:768px){
-
-    .enquiry-card{
-        padding:20px;
-    }
-
-    .btn-submit,
-    .btn-reset{
-        width:100%;
-        margin-top:10px;
-        margin-left:0;
-    }
+    left:-120px;
 
 }
 .login-btn{
@@ -228,13 +357,13 @@ textarea.form-control{
                             <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;" href="#">About</a>
                         </li>
                         <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"  href="#">Courses</a>
+                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"  href="{% url 'courses' %}">Courses</a>
                         </li>
                         <li class="nav-item" >
                             <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"href="{% url 'enquiry' %}">Enquiry</a>
                             <li>
                                 <div class="d-flex ms-auto">
-    <a href="{% url 'admin_login' %}" class="login-btn">
+    <a href="{% url 'student_login' %}" class="login-btn">
         <i class="fa-solid fa-right-to-bracket"></i>
         Login
     </a>
@@ -244,11 +373,38 @@ textarea.form-control{
                     </div>
                 </div>
             </nav>
+            <section class="hero">
+
+    <span class="hero-tag">
+        <i class="fa-solid fa-graduation-cap"></i>
+        Admissions Open 2026
+    </span>
+
+    <h1>
+        Begin Your
+        <span>Career Journey</span>
+    </h1>
+
+    <p>
+
+        Looking for the right course?
+
+        Fill out the enquiry form and our admission team will
+        guide you with courses, fees, scholarships and career opportunities.
+
+    </p>
+
+</section>
     
 <div class="container-fluid py-4">
 
     <div class="card shadow-lg border-0">
         <div class="card-header bg-primary text-white">
+            <p class="head-desc">
+
+Have questions? Complete the form below and we'll contact you shortly.
+
+</p>
             <h3 class="mb-0">
                 <i class="fa-solid fa-circle-question me-2"></i>
                 Student Enquiry Form
@@ -281,6 +437,7 @@ textarea.form-control{
                                placeholder="Enter Email"
                                required>
                     </div>
+                    
 
                     <!-- Mobile -->
                     <div class="col-md-6 mb-3">
@@ -339,6 +496,8 @@ textarea.form-control{
     </div>
 
 </div>
+<div class="bg-circle one"></div>
+<div class="bg-circle two"></div>
 
 </body>
 </html>
