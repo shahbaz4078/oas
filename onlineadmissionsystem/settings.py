@@ -40,8 +40,8 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get(
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-MEDIA_URL = ''
-MEDIA_ROOT = BASE_DIR / ""
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 
 
@@ -133,7 +133,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
