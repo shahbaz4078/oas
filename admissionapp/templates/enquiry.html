@@ -30,22 +30,124 @@
         auto,
         auto;
 }
-        .navbar{
-    
-    display:inline-flex;
-    align-items:center;
-    width:fit-content;
-    position:relative;
-    left: 25%;
-    box-shadow:inset; 
+ /* ── NAVBAR ── */
+.navbar {
+    width: min(92%, 1100px) !important;
+    margin: 18px auto 0 !important;
+    padding: 10px 18px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+
+    background: #0b1220 !important;
+    border: 1px solid rgba(255, 255, 255, 0.06) !important;
+    border-radius: 100px !important;
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.28),
+        0 0 0 1px rgba(255, 255, 255, 0.03) !important;
+
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
 }
-.course-heading{
-    background:#F8FAFC;
-    
+
+.navbar .container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 16px !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
 }
-.nav-link:hover{
-color:#FACC15 !important;
+
+.navbar-brand {
+    color: #e2e8f0 !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    white-space: nowrap;
 }
+
+.navbar-nav {
+    display: flex !important;
+    align-items: center !important;
+    gap: 28px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+.navbar .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    font-style: normal !important;
+    padding: 0 !important;
+    transition: color 0.25s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+    color: #FACC15 !important;
+}
+
+.login-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+
+    min-width: 110px;
+    height: 42px;
+    padding: 0 20px !important;
+
+    background: linear-gradient(135deg, #2563EB, #3B82F6) !important;
+    color: #fff !important;
+    text-decoration: none !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+
+    border: none !important;
+    border-radius: 50px !important;
+
+    box-shadow:
+        0 8px 24px rgba(37, 99, 235, 0.4),
+        0 0 20px rgba(59, 130, 246, 0.25) !important;
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+    white-space: nowrap;
+}
+
+.login-btn:hover {
+    color: #fff !important;
+    transform: translateY(-2px) !important;
+    box-shadow:
+        0 14px 32px rgba(37, 99, 235, 0.5),
+        0 0 28px rgba(59, 130, 246, 0.3) !important;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        width: 94% !important;
+        border-radius: 18px !important;
+        padding: 10px 14px !important;
+    }
+
+    .navbar-nav {
+        gap: 16px !important;
+        margin: 10px 0 0 !important;
+        width: 100%;
+        justify-content: center;
+    }
+}
+
         /* ===========================
    ENQUIRY FORM
 =========================== */
@@ -91,14 +193,12 @@ color:#FACC15 !important;
 
 }
 
-.hero span{
-
-    background:linear-gradient(135deg,#2563EB,#4F46E5);
-
-
-
-    color:transparent;
-
+.hero span {
+    background: linear-gradient(135deg, #2563EB, #4F46E5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
 }
 
 .hero p{
@@ -331,48 +431,43 @@ textarea.form-control{
     </style>
 </head>
 <body>
-     <nav class="navbar navbar-expand-lg ">
-            <div class="container-fluid ml-5 "
-                style="background-color:#0F172A; border-radius: 15px; ">
-                <img src="{% static 'images/SipherWebLogo-CzTrOqHm.png' %}"
-                    alt="Logo" width="80" height="50"
-                    class="d-inline-block align-text-top">
-                <a class="navbar-brand" style="color:darkblue;" href="#">Sipher
-                    Web Academy</a>
-                <button class="navbar-toggler" type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse "
-                    id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto p-3 mb-2 mb-lg-0 gap-5">
-                        <li class="nav-item">
-                            <a class="nav-link active " style="font-weight: bold; color:#F8FAFC; font-style: italic;"
-                                aria-current="page" href="{% url 'home' %}">Home</a>
-                        </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;" href="#">About</a>
-                        </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"  href="{% url 'courses' %}">Courses</a>
-                        </li>
-                        <li class="nav-item" >
-                            <a class="nav-link" style="font-weight: bold; color:#F8FAFC; font-style: italic;"href="{% url 'enquiry' %}">Enquiry</a>
-                            <li>
-                                <div class="d-flex ms-auto">
-    <a href="{% url 'student_login' %}" class="login-btn">
-        <i class="fa-solid fa-right-to-bracket"></i>
-        Login
-    </a>
-</div>
-                            </li>
-                        </form>
-                    </div>
-                </div>
-            </nav>
+     <nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{% url 'home' %}">
+            <img src="{% static 'images/SipherWebLogo-CzTrOqHm.png' %}"
+                 alt="Logo" width="42" height="42">
+            Sipher Web Academy
+        </a>
+
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#aboutus">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'courses' %}">Courses</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'enquiry' %}">Enquiry</a>
+                </li>
+            </ul>
+
+            <a href="{% url 'student_login' %}" class="login-btn">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Login
+            </a>
+        </div>
+    </div>
+</nav>
             <section class="hero">
 
     <span class="hero-tag">
